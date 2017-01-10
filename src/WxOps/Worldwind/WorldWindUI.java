@@ -31,9 +31,11 @@ import gov.nasa.worldwind.WorldWindow;
 import gov.nasa.worldwind.avlist.AVKey;
 import com.wxops.*;
 import gov.nasa.worldwind.util.xml.XMLEventParserContextFactory;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Date;
 
-// @author pSubacz & vHaley
+// @author pSubacz & vHaley, updated wxazygy 9 Jan 2017
 public class WorldWindUI extends ApplicationTemplate {
 
     public static class AppFrame extends ApplicationTemplate.AppFrame {
@@ -50,9 +52,9 @@ public class WorldWindUI extends ApplicationTemplate {
         protected KMLApplicationController kmlAppController;
         protected BalloonController balloonController;
         private WorldWindow wwd;
-        protected Date begin = WxOpsKMLTimeSpan.parseTimeString("2008-07-23T18:00:00Z");
-        protected Date end = WxOpsKMLTimeSpan.parseTimeString("2008-07-23T18:59:59.9Z");
-        protected long delta = (end.getTime() - begin.getTime()) / 40; // divided by 8 due to hard coding timesteps.
+        protected Date begin = WxOpsKMLTimeSpan.parseTimeString("2008-07-23T18:02:00Z");
+        protected Date end = WxOpsKMLTimeSpan.parseTimeString("2008-07-23T18:56:00Z");
+        protected long delta = (end.getTime() - begin.getTime()) / 9; // divided by 8 due to hard coding timesteps.
         protected Date date = new Date(begin.getTime());
         protected Timer timer = new Timer(500, new ActionListener() {
             @Override
@@ -163,16 +165,42 @@ public class WorldWindUI extends ApplicationTemplate {
             viewMenu.setMnemonic(KeyEvent.VK_V);
             menuBar.add(viewMenu);
             // The following code creates a pop-up window that allows users to control the camera via typing input commands. The menu can be found in the file called CameraControlWindow.java
-            openCameraControlItem = new JMenuItem("Camera Controls Menu ");
+            openCameraControlItem = new JMenuItem("Camera Controls ");
             viewMenu.add(openCameraControlItem); // Adds the Set Camera Menu, 
             openCameraControlItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_4, ActionEvent.ALT_MASK)); // Sets a Hotkey to 
             openCameraControlItem.addActionListener(new ActionListener() {   //The Following code is excuted when the button is pressed
                 public void actionPerformed(ActionEvent actionEvent) {
-                    try {
-                        new CameraControlWindow(getWwd()).setVisible(true);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    boolean ccwRunning = false;
+                    // show/hide the Camera Control Form
+                    Frame[] frames = Frame.getFrames();
+                    for (int i = 0; i < frames.length; i++) {
+                        String title = frames[i].getTitle();
+                        if (title == "Camera") {
+                            ccwRunning = true;
+                            boolean vis = frames[i].isVisible();
+                            vis = !vis;
+                            frames[i].setVisible(vis); 
+                        }
+                        //System.out.println(title + " = " + vis);
+                    } 
+                    
+                    if (!ccwRunning) {
+                        try {
+                           CameraControlWindow ccw1 = new CameraControlWindow(getWwd());
+                           ccw1.setVisible(true);
+                           //spawn a separate thread
+                            Path dir = Paths.get("c:/test1");
+                            // works as static process, but cannot talk to CamUI runtime
+                            // *************
+                            WatchDir2 watcher = new WatchDir2(dir, true);
+                            watcher.setCamUI(ccw1);
+                            watcher.processEvents();  
+                        } catch (Exception e) {
+                           e.printStackTrace();
+                        }
+ 
+                    }  
+  
                 }
             });
 
@@ -312,9 +340,27 @@ public class WorldWindUI extends ApplicationTemplate {
 //            }
 //        });
 //    }
+    
 
     public static void main(String[] args) {
         final AppFrame af = (AppFrame) start("WxOps Inc. WorldWind Earth 0.6.0", AppFrame.class);
+        
+        // create the CameraControlWindow and stay resident
+    //    try {     
+    //        final CameraControlWindow ccw = new CameraControlWindow(wwd);
+    //        ccw.setVisible(true);
+    //        } catch (Exception e) {
+    //            e.printStackTrace();
+    //        }
+               
+        
+        /* Create and display the form */
+        
+        
+        
+        
+        
+        
     }
     
     // Variables declaration - do not modify   
@@ -322,5 +368,4 @@ public class WorldWindUI extends ApplicationTemplate {
     private static WorldWindow wwd;
     protected JButton aniplayButton, anistopButton;
     Boolean animationFlag = false;
-
 }
