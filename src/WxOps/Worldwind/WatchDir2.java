@@ -31,7 +31,7 @@ import javax.swing.SwingUtilities;
 
 /**
  *
- * @author Scrodd
+ * @author wxazygy, updated 9 Jan 2017
  */
 public class WatchDir2 {
 
@@ -43,7 +43,7 @@ public class WatchDir2 {
     private long startTime;
     private long endTime;
     public String cmdarg;
-    private CameraControlUI CameraControlUI;
+    private CameraControlWindow ccw2;
 
     @SuppressWarnings("unchecked")
     <T> WatchEvent<T> cast(WatchEvent<?> event) {
@@ -96,12 +96,12 @@ public class WatchDir2 {
         keys.put(key, dir);
     }
 
-    public CameraControlUI getCamUI() {
-        return this.CameraControlUI;
+    public CameraControlWindow getCamUI() {
+        return this.ccw2;
     }
 
-    public void setCamUI(CameraControlUI camUI) {
-        this.CameraControlUI = CameraControlUI;
+    public void setCamUI(CameraControlWindow camUI) {
+        this.ccw2 = camUI;
     }
 
     //Process all events for keys queued to the watcher
@@ -157,13 +157,25 @@ public class WatchDir2 {
                         //jsetText();
                     }
                 }
+                
+                if (kind == ENTRY_MODIFY) {
+                    System.out.format("%s: %s\n", "** ", child);
+                    // The name of the file to open.
+                    String fileName = child.toString();
+                    if (fileName.contains("cmd.txt")) {
+                        logFile = "c:/test1/log.txt";  //hardcoded for now
+                        startTime = System.nanoTime();  //start Timer
+                        readCmdArgs(fileName);
+
+                        //jsetText();
+                    }
+                }
 
                 if (kind == ENTRY_DELETE) {
                     System.out.format("%s: %s\n", "** ", child);
                     endTime = System.nanoTime();
                     long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
-                    System.out.println(duration / 1000000 + " msec " + cmdarg);
-
+                    System.out.println("deleted " + duration / 1000000 + " msec " + cmdarg);
                 }
 
                 // if directory is created, and watching recursively, then
@@ -221,6 +233,9 @@ public class WatchDir2 {
             //Delete the original file
             if (!inFile.delete()) {
                 //System.out.println("Could not delete file");
+                endTime = System.nanoTime();
+                long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
+                System.out.println("not deleted " + duration / 1000000 + " msec " + cmdarg);
                 return;
             }
             //Rename the new file to the filename the original file had.
@@ -247,6 +262,8 @@ public class WatchDir2 {
             final String azi = args[6];
             final String FOV = args[7];
             final String spd = args[8];
+            
+            System.out.println(lon + "," + lat);
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
                     getCamUI().jsetPOV(lon, lat, rng, roll, tilt, azi, FOV, spd);
