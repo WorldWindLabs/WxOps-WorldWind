@@ -60,16 +60,28 @@ The WorldwindUI is equiped with a menu that allows users to input coordinates an
 
 #####3.3 Kml Support
 
-The WorldWindUI has a menu allowing for importing KML and KMZ files. This can be accessed through File>Open KML Data. The user can choose either “Open File” or “Open URL.” Alternatively, “Open File” can be accessed by pressing [alt+2] and “Open URL” can be accessed by pressing [alt+3]. Choosing “Open File” will open a file chooser, defaulting to the user’s Documents folder. Selecting “Open URL” will open a popup allowing the user to type in a URL of a KML or KMZ file to open. 
+The WorldWindUI has a menu allowing for importing KML and KMZ files. This can be accessed through File>Open KML Data. The user can choose either “Open File” or “Open URL.” Alternatively, “Open File” can be accessed by pressing [alt+2] and “Open URL” can be accessed by pressing [alt+3]. Choosing “Open File” will open a file chooser, defaulting to the user’s Documents folder. Selecting “Open URL” will open a popup allowing the user to type in a URL of a KML or KMZ file to open. Example data can be located at: https://wxops.com/demo/
 
 #####3.4 Animation 
 
-The WorldWindUI has a menu item to start and stop a time animation if a full KML or KMZ file contains a TimeSpan element. This control can be accessed through Animation>Play/Stop.
-For the animation functionality to work correctly, the KML or KMZ file to animate must have its TimeSpan “Begin” and “End” values match the corresponding values assigned to the variables “start” and “end” on lines 53-54 in the WorldWindUI.java class. If the values do not match, the animation will not function properly. The “begin” and “end” variables in WorldWindUI.java must be changed accordingly.
+
+The WorldWindUI has elements to start and stop a time animation if a full KML or KMZ file contains a TimeSpan element. For the animation functionality to work correctly, the KML or KMZ file to animate must have its TimeSpan “Begin” and “End” values match the corresponding values assigned to the variables “start” and “end”. For the animation functionality to work correctly, the KML or KMZ file to animate must have its TimeSpan “Begin” and “End” values match the corresponding values assigned to the variables “start” and “end”. These time variables can be input into the corresponding text fields, if the values do not match, the animation will not function properly. Worldwind Earth has its default animation timestamps and delta set to allow for the demo animation "Hurricane Dolly" to function properly. 
+
+Input must match the following format Example: 2008-07-23T18:02:00Z where (Year)-(month)-(date)T(Hour):Minute(Second)Z
+
+Animation Data can be found at: https://wxops.com/demo under Hurrican Dolly.
+
+Input the following data 
+Date Begin: 	2008-07-23T18:02:00Z
+Date End:	2008-07-23T18:56:00Z
+Time Delta:	9
 
 ---------------------------------------------
 
 ##4. Future Plans
+
+*Dynamic Animation support 
+*Increase KML data functionality 
 
 ---------------------------------------------
 
@@ -77,3 +89,14 @@ For the animation functionality to work correctly, the KML or KMZ file to animat
 
 * Kml files cannot be removed once added, however, the files can be disabled in the layer menu. 
 * The icons for some KML data are unusually sized.
+* Camera Control menu cannot be closed without closing the application
+* Current Time UI element doesn't display time. 
+---------------------------------------------
+
+##6. Change Log
+
+* Change Log 1/11/2017
+* Reworked Animation Controls 
+* Added new UI elements to allow for manual input of animation Data.
+* Added Animation Help Menu, This can be accessed clicking on Help > Animation 
+* Section 3.4 updated to reflect changes
