@@ -36,6 +36,7 @@ import java.nio.file.Paths;
 import java.util.Date;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.text.SimpleDateFormat;
 
 // @author pSubacz & vHaley, updated wxazygy 11 Jan 2017
 public class WorldWindUI extends ApplicationTemplate {
@@ -254,21 +255,22 @@ public class WorldWindUI extends ApplicationTemplate {
             //Adds The Begin Date Code
             label2 = new JLabel(" Begin Date: ");
             menuBar.add(label2);//Date Begin should be formated like 2008-07-23T18:02:00Z
-            jTextField1 = new JTextField();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+            jTextField1 = new JFormattedTextField(dateFormat);
             jTextField1.setText(dateBegin);
             menuBar.add(jTextField1);
             // Adds the End date code
             label3 = new JLabel(" End Date: ");
             menuBar.add(label3);
-            jTextField2 = new JTextField();//Date Begin should be formated like 2008-07-23T18:56:00Z
+            jTextField2 = new JFormattedTextField(dateFormat);//Date Begin should be formated like 2008-07-23T18:56:00Z
             jTextField2.setText(dateEnd);
             menuBar.add(jTextField2);
             // Adds the Current date code. 
             label4 = new JLabel(" Current Date (Do not edit):");
             menuBar.add(label4);
-            jTextField3 = new JTextField(); //Current Date should be formated like 2008-07-23T18:56:00Z
+            jTextField3 = new JFormattedTextField(dateFormat); //Current Date should be formated like 2008-07-23T18:56:00Z
             menuBar.add(jTextField3);
-            jTextField3.setText((date));
+            jTextField3.setText(date.toString());
             label5 = new JLabel(" Animation Delta: ");
             menuBar.add(label5);
             jTextField4 = new JTextField(); //Current Date should be formated like 2008-07-23T18:56:00Z
