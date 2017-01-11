@@ -34,8 +34,10 @@ import gov.nasa.worldwind.util.xml.XMLEventParserContextFactory;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 
-// @author pSubacz & vHaley, updated wxazygy 9 Jan 2017
+// @author pSubacz & vHaley, updated wxazygy 11 Jan 2017
 public class WorldWindUI extends ApplicationTemplate {
 
     public static class AppFrame extends ApplicationTemplate.AppFrame {
@@ -52,9 +54,17 @@ public class WorldWindUI extends ApplicationTemplate {
         protected KMLApplicationController kmlAppController;
         protected BalloonController balloonController;
         private WorldWindow wwd;
-        protected Date begin = WxOpsKMLTimeSpan.parseTimeString("2008-07-23T18:02:00Z");
-        protected Date end = WxOpsKMLTimeSpan.parseTimeString("2008-07-23T18:56:00Z");
-        protected long delta = (end.getTime() - begin.getTime()) / 9; // divided by 8 due to hard coding timesteps.
+//        Disabled to defer varibles into the animation control popup menu        
+//        protected Date begin = WxOpsKMLTimeSpan.parseTimeString("2008-07-23T18:02:00Z");
+//        protected Date end = WxOpsKMLTimeSpan.parseTimeString("2008-07-23T18:56:00Z");
+//        protected long delta = (end.getTime() - begin.getTime()) / 9; // divided by  due to hard coding timesteps.
+//        The variables below should 
+        String dateBegin = "2008-07-23T18:02:00Z";
+        String dateEnd = "2008-07-23T18:56:00Z";
+        protected Date begin = WxOpsKMLTimeSpan.parseTimeString(dateBegin);
+        protected Date end = WxOpsKMLTimeSpan.parseTimeString(dateEnd);
+        protected int subDelta = 9;
+        protected long delta = (end.getTime() - begin.getTime()) / subDelta; // divided by  due to hard coding timesteps.       
         protected Date date = new Date(begin.getTime());
         protected Timer timer = new Timer(500, new ActionListener() {
             @Override
@@ -98,7 +108,7 @@ public class WorldWindUI extends ApplicationTemplate {
             // The following are UI components to be used later. Note: Need to fix naming stucture
             JMenuBar menuBar;
             JMenu fileSubmenu, viewSubmenu;
-            JMenuItem viewMenu, editMenu, animationMenu, openFileMenuItem, openURLMenuItem, openCameraControlItem, playmenuItem;
+            JMenuItem viewMenu, editMenu, animationMenu, openFileMenuItem, openURLMenuItem, openCameraControlItem, playmenuItem, animationmenuItem;
             JRadioButtonMenuItem rbMenuItem;
             JLabel label1, label2, label3, label4, label5, label6, label7, label8, label9;
             JTextField jTextField1, jTextField2, jTextField3, jTextField4, jTextField5, jTextField6, jTextField7, jTextField8, jTextField9;
@@ -107,11 +117,13 @@ public class WorldWindUI extends ApplicationTemplate {
             fileChooser.setMultiSelectionEnabled(true);
             fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("KML/KMZ File", "kml", "kmz"));
 
+            //---
 //--------------FILE-Menu------------------------------------------
             menuBar = new JMenuBar(); // Creates the menubar to work off of.
             this.setJMenuBar(menuBar);
             JMenu fileMenu = new JMenu("File"); // Adds "File" to the menu bar.
             menuBar.add(fileMenu); // Adds the "File" section to the menu bar.
+
 //-------------File-Submenu----------------------------------------
             // The Following Code creates a menu item that has seperate items.
             fileMenu.addSeparator();
@@ -179,41 +191,111 @@ public class WorldWindUI extends ApplicationTemplate {
                             ccwRunning = true;
                             boolean vis = frames[i].isVisible();
                             vis = !vis;
-                            frames[i].setVisible(vis); 
+                            frames[i].setVisible(vis);
                         }
                         //System.out.println(title + " = " + vis);
-                    } 
-                    
+                    }
+
                     if (!ccwRunning) {
                         try {
-                           CameraControlWindow ccw1 = new CameraControlWindow(getWwd());
-                           ccw1.setVisible(true);
-                           //spawn a separate thread
+                            CameraControlWindow ccw1 = new CameraControlWindow(getWwd());
+                            ccw1.setVisible(true);
+                            //spawn a separate thread
                             Path dir = Paths.get("c:/test1");
                             // works as static process, but cannot talk to CamUI runtime
                             // *************
                             WatchDir2 watcher = new WatchDir2(dir, true);
                             watcher.setCamUI(ccw1);
-                            watcher.processEvents();  
+                            watcher.processEvents();
                         } catch (Exception e) {
-                           e.printStackTrace();
+                            e.printStackTrace();
                         }
- 
-                    }  
-  
+
+                    }
                 }
             });
 
-//--------------Animation-Menu------------------------------------
+//--------------Animation-Menu-and-Buttons------------------------------------
             //The animation Menu allows a user to play animations found within the hardcoded timestamps.  
-            animationMenu = new JMenu("Animation");
-            animationMenu.setMnemonic(KeyEvent.VK_N);
-            menuBar.add(animationMenu);
-            //This function menu item allows the users to toggle animations loaded in KML Files. 
-            playmenuItem = new JMenuItem("Play/Stop ");
-            playmenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_5, ActionEvent.ALT_MASK));
-            animationMenu.add(playmenuItem); // Adds play/stop button, 
-            playmenuItem.addActionListener(new ActionListener() {   //The Following code is excuted when the button is pressed
+            //Disabled, Code Below for menu buttons 
+//            animationMenu = new JMenu("Animation");
+//            animationMenu.setMnemonic(KeyEvent.VK_N);
+//            menuBar.add(animationMenu);
+////            This function menu item allows the users to toggle animations loaded in KML Files. Disables for testing
+//            playmenuItem = new JMenuItem("Play/Stop ");
+//            playmenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_5, ActionEvent.ALT_MASK));
+//            animationMenu.add(playmenuItem); // Adds play/stop button, 
+//            playmenuItem.addActionListener(new ActionListener() {   //The Following code is excuted when the button is pressed
+//                public void actionPerformed(ActionEvent actionEvent) {
+//                    try {
+//                        onPlayPressed();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
+//            animationmenuItem = new JMenuItem("Open Animation Menu");
+//            animationmenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_6, ActionEvent.ALT_MASK));
+//            animationMenu.add(animationmenuItem);
+//            animationmenuItem.addActionListener(new ActionListener() {   //The Following code is excuted when the button is pressed
+//                public void actionPerformed(ActionEvent actionEvent) {
+//                    try {
+////                        AnimationControlWindow test = new AnimationControlWindow(dateBegin, dateEnd, subDelta); // Bring in arguments
+////                        test.setVisible(true);
+////                    } catch (Exception e) {
+////                        e.printStackTrace();
+//                    }
+//                }
+//            });
+// The following code creates a the animation controls in the menu bar
+            label1 = new JLabel("Animation:  ");
+            menuBar.add(label1);
+// Creates the labels and text fields to support typing in the animation code. 
+            //Adds The Begin Date Code
+            label2 = new JLabel(" Begin Date: ");
+            menuBar.add(label2);//Date Begin should be formated like 2008-07-23T18:02:00Z
+            jTextField1 = new JTextField();
+            jTextField1.setText(dateBegin);
+            menuBar.add(jTextField1);
+            // Adds the End date code
+            label3 = new JLabel(" End Date: ");
+            menuBar.add(label3);
+            jTextField2 = new JTextField();//Date Begin should be formated like 2008-07-23T18:56:00Z
+            jTextField2.setText(dateEnd);
+            menuBar.add(jTextField2);
+            // Adds the Current date code. 
+            label4 = new JLabel(" Current Date (Do not edit):");
+            menuBar.add(label4);
+            jTextField3 = new JTextField(); //Current Date should be formated like 2008-07-23T18:56:00Z
+            menuBar.add(jTextField3);
+            jTextField3.setText((date));
+            label5 = new JLabel(" Animation Delta: ");
+            menuBar.add(label5);
+            jTextField4 = new JTextField(); //Current Date should be formated like 2008-07-23T18:56:00Z
+            menuBar.add(jTextField4);
+            jTextField4.setText(Integer.toString(subDelta));
+//          Button 2 should grab the text input from the text fields Assumeing that ther are  
+            JButton button2 = new JButton(" Set Animation Arguements ");
+            menuBar.add(button2, BorderLayout.PAGE_END);
+            button2.addActionListener(new ActionListener() {   //The Following code is excuted when the button is pressed
+                public void actionPerformed(ActionEvent actionEvent) {
+                    try {
+                        dateBegin = jTextField1.getText();
+                        dateEnd = jTextField2.getText();
+                        subDelta = Integer.parseInt(jTextField4.getText());
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        AnimationControlHelp test = new AnimationControlHelp(); // Bring in arguments
+                        test.setVisible(true);
+                    }
+                }
+            });
+
+            //Creates a button that will play and pause animtion
+            JButton button1 = new JButton(" Animation Play/Pause ");
+            menuBar.add(button1, BorderLayout.PAGE_END);
+            button1.addActionListener(new ActionListener() {   //The Following code is excuted when the button is pressed
                 public void actionPerformed(ActionEvent actionEvent) {
                     try {
                         onPlayPressed();
@@ -222,6 +304,10 @@ public class WorldWindUI extends ApplicationTemplate {
                     }
                 }
             });
+//            JButton button3 = new JButton("Rewind");
+//            menuBar.add(button3, BorderLayout.PAGE_END);
+//            JButton button4 = new JButton("Long-Named Button 4 (PAGE_END)");
+//            menuBar.add(button1, BorderLayout.PAGE_END);
         }
 
         protected void onPlayPressed() {    // When the item is selected the timer is stoped and started.
@@ -237,7 +323,7 @@ public class WorldWindUI extends ApplicationTemplate {
             if (date.compareTo(end) > 0) {
                 date.setTime(begin.getTime());
             }
-        //    jTextArea1.setText(date.toString()); // print the sting a text file on screen. to know when dates/time
+            //    jTextArea1.setText(date.toString()); // print the sting a text file on screen. to know when dates/time
             getWwd().redraw();
             System.out.println(date);
         }
@@ -275,6 +361,7 @@ public class WorldWindUI extends ApplicationTemplate {
 
         protected Object kmlSource;
         protected AppFrame appFrame;
+
         public WorkerThread(Object kmlSource, AppFrame appFrame) {
             this.kmlSource = kmlSource;
             this.appFrame = appFrame;
@@ -294,6 +381,7 @@ public class WorldWindUI extends ApplicationTemplate {
                 e.printStackTrace();
             }
         }
+
         protected KMLRoot parse() throws IOException, XMLStreamException {
             return KMLRoot.createAndParse(this.kmlSource);
         }
@@ -340,29 +428,20 @@ public class WorldWindUI extends ApplicationTemplate {
 //            }
 //        });
 //    }
-    
 
     public static void main(String[] args) {
         final AppFrame af = (AppFrame) start("WxOps Inc. WorldWind Earth 0.6.0", AppFrame.class);
-        
+
         // create the CameraControlWindow and stay resident
-    //    try {     
-    //        final CameraControlWindow ccw = new CameraControlWindow(wwd);
-    //        ccw.setVisible(true);
-    //        } catch (Exception e) {
-    //            e.printStackTrace();
-    //        }
-               
-        
+        //    try {     
+        //        final CameraControlWindow ccw = new CameraControlWindow(wwd);
+        //        ccw.setVisible(true);
+        //        } catch (Exception e) {
+        //            e.printStackTrace();
+        //        }
         /* Create and display the form */
-        
-        
-        
-        
-        
-        
     }
-    
+
     // Variables declaration - do not modify   
     protected static ViewControlsLayer viewControlsLayer;
     private static WorldWindow wwd;

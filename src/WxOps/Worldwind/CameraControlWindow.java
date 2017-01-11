@@ -17,7 +17,7 @@ import javax.swing.*;
 
 /**
  *
- * @author Peter, wxazygy 9 Jan 2017
+ * @author pSubacz, wxazygy 9 Jan 2017
  */
 public class CameraControlWindow extends javax.swing.JFrame {
 

@@ -9,87 +9,91 @@ package WxOps.Worldwind;
  *
  * @author PC
  */
-import java.awt.Dialog.ModalityType;
-import java.awt.*;
-import java.awt.event.*;
+/*
+ * BorderLayoutDemo.java
+ *
+ */
 import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
 
 public class NewClass {
-   public static final int PREF_W = 600;
-   public static final int PREF_H = 400;
-
-   private static void createAndShowGui() {
-      final JFrame frame = new JFrame("Main Application");
-      JPanel buttonPanel = new JPanel(new GridLayout(1, 0, 5, 0));
-
-      buttonPanel.add(new JButton(new AbstractAction("New JFrame") {
-        {
-           putValue(MNEMONIC_KEY, KeyEvent.VK_F);
+    public static boolean RIGHT_TO_LEFT = false;
+    
+    public static void addComponentsToPane(Container pane) {
+        
+        if (!(pane.getLayout() instanceof BorderLayout)) {
+            pane.add(new JLabel("Container doesn't use BorderLayout!"));
+            return;
         }
-
-         @Override
-         public void actionPerformed(ActionEvent e) {
-            JFrame frame2 = new JFrame("Frame 2");
-            frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            setupAndDisplay(frame2);
-         }
-      }));
-      buttonPanel.add(new JButton(new AbstractAction("New Modeless JDialog") {
-        {
-           putValue(MNEMONIC_KEY, KeyEvent.VK_D);
+        
+        if (RIGHT_TO_LEFT) {
+            pane.setComponentOrientation(
+                    java.awt.ComponentOrientation.RIGHT_TO_LEFT);
         }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-           JDialog dialog = new JDialog(frame, "Modeless Dialog", ModalityType.MODELESS);
-           setupAndDisplay(dialog);
+        
+        JButton button = new JButton("Button 1 (PAGE_START)");
+        pane.add(button, BorderLayout.PAGE_START);
+        
+        //Make the center component big, since that's the
+        //typical usage of BorderLayout.
+        button = new JButton("Button 2 (CENTER)");
+        button.setPreferredSize(new Dimension(200, 100));
+        pane.add(button, BorderLayout.CENTER);
+        
+        button = new JButton("Button 3 (LINE_START)");
+        pane.add(button, BorderLayout.LINE_START);
+        
+        button = new JButton("Long-Named Button 4 (PAGE_END)");
+        pane.add(button, BorderLayout.PAGE_END);
+        
+        button = new JButton("5 (LINE_END)");
+        pane.add(button, BorderLayout.LINE_END);
+    }
+    
+    /**
+     * Create the GUI and show it.  For thread safety,
+     * this method should be invoked from the
+     * event dispatch thread.
+     */
+    private static void createAndShowGUI() {
+        
+        //Create and set up the window.
+        JFrame frame = new JFrame("BorderLayoutDemo");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //Set up the content pane.
+        addComponentsToPane(frame.getContentPane());
+        //Use the content pane's default BorderLayout. No need for
+        //setLayout(new BorderLayout());
+        //Display the window.
+        frame.pack();
+        frame.setVisible(true);
+    }
+    
+    public static void main(String[] args) {
+        /* Use an appropriate Look and Feel */
+        try {
+            //UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+        } catch (UnsupportedLookAndFeelException ex) {
+            ex.printStackTrace();
+        } catch (IllegalAccessException ex) {
+            ex.printStackTrace();
+        } catch (InstantiationException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
         }
-     }));
-
-      buttonPanel.add(new JButton(new AbstractAction("New Modal JDialog") {
-        {
-           putValue(MNEMONIC_KEY, KeyEvent.VK_M);
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-           JDialog dialog = new JDialog(frame, "Modal Dialog", ModalityType.APPLICATION_MODAL);
-           setupAndDisplay(dialog);
-        }
-     }));
-
-      JPanel mainPanel = new JPanel() {
-         @Override
-         public Dimension getPreferredSize() {
-            if (isPreferredSizeSet()) {
-               return super.getPreferredSize();
+        /* Turn off metal's use bold fonts */
+        UIManager.put("swing.boldMetal", Boolean.FALSE);
+        
+        //Schedule a job for the event dispatch thread:
+        //creating and showing this application's GUI.
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
             }
-            return new Dimension(PREF_W, PREF_H);
-         }
-      };
-
-      mainPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-      mainPanel.add(buttonPanel);
-
-      frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-      frame.getContentPane().add(mainPanel);
-      frame.pack();
-      frame.setLocationByPlatform(true);
-      frame.setVisible(true);
-   }
-
-   private static void setupAndDisplay(Window window) {
-      window.add(Box.createRigidArea(new Dimension(200, 100)));
-      window.pack();
-      window.setLocationByPlatform(true);
-      window.setVisible(true);
-   }
-
-   public static void main(String[] args) {
-      SwingUtilities.invokeLater(new Runnable() {
-         public void run() {
-            createAndShowGui();
-         }
-      });
-   }
+        });
+    }
 }
