@@ -67,6 +67,7 @@ public class WorldWindUI extends ApplicationTemplate {
         protected int subDelta = 9;
         protected long delta = (end.getTime() - begin.getTime()) / subDelta; // divided by  due to hard coding timesteps.       
         protected Date date = new Date(begin.getTime());
+        protected JFormattedTextField dateTextField;
         protected Timer timer = new Timer(500, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -112,7 +113,8 @@ public class WorldWindUI extends ApplicationTemplate {
             JMenuItem viewMenu, editMenu, animationMenu, openFileMenuItem, openURLMenuItem, openCameraControlItem, playmenuItem, animationmenuItem;
             JRadioButtonMenuItem rbMenuItem;
             JLabel label1, label2, label3, label4, label5, label6, label7, label8, label9;
-            JTextField jTextField1, jTextField2, jTextField3, jTextField4, jTextField5, jTextField6, jTextField7, jTextField8, jTextField9;
+            JFormattedTextField jTextField1, jTextField2;
+            JTextField jTextField4;
             JCheckBoxMenuItem cbMenuItem;
             final JFileChooser fileChooser = new JFileChooser();
             fileChooser.setMultiSelectionEnabled(true);
@@ -257,20 +259,20 @@ public class WorldWindUI extends ApplicationTemplate {
             menuBar.add(label2);//Date Begin should be formated like 2008-07-23T18:02:00Z
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
             jTextField1 = new JFormattedTextField(dateFormat);
-            jTextField1.setText(dateBegin);
+            jTextField1.setValue(begin);
             menuBar.add(jTextField1);
             // Adds the End date code
             label3 = new JLabel(" End Date: ");
             menuBar.add(label3);
             jTextField2 = new JFormattedTextField(dateFormat);//Date Begin should be formated like 2008-07-23T18:56:00Z
-            jTextField2.setText(dateEnd);
+            jTextField2.setValue(end);
             menuBar.add(jTextField2);
             // Adds the Current date code. 
             label4 = new JLabel(" Current Date (Do not edit):");
             menuBar.add(label4);
-            jTextField3 = new JFormattedTextField(dateFormat); //Current Date should be formated like 2008-07-23T18:56:00Z
-            menuBar.add(jTextField3);
-            jTextField3.setText(date.toString());
+            dateTextField = new JFormattedTextField(dateFormat); //Current Date should be formated like 2008-07-23T18:56:00Z
+            menuBar.add(dateTextField);
+            dateTextField.setValue(date);
             label5 = new JLabel(" Animation Delta: ");
             menuBar.add(label5);
             jTextField4 = new JTextField(); //Current Date should be formated like 2008-07-23T18:56:00Z
@@ -328,6 +330,7 @@ public class WorldWindUI extends ApplicationTemplate {
             //    jTextArea1.setText(date.toString()); // print the sting a text file on screen. to know when dates/time
             getWwd().redraw();
             System.out.println(date);
+            dateTextField.setValue(date);
         }
 
         protected void addKMLLayer(KMLRoot kmlRoot) {
