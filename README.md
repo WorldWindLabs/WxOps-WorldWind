@@ -1,7 +1,7 @@
 
 <img src="https://wxops.joomla.com/images/assets/header_images/wxops-logo-sm.png" height="100"/>
 # WorldWind Earth Application
-Authors: Vanessa Haley & Peter Subacz
+Authors: Vanessa Haley & Peter Subacz 
 ---------------------------------------------
 
 ##1. Introduction

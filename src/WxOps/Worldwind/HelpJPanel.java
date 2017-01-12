@@ -9,6 +9,6 @@ package WxOps.Worldwind;
  *
  * @author PC
  */
-public class Com_API_test {
+public class HelpJPanel {
     
 }

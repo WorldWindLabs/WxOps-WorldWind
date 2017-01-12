@@ -203,9 +203,13 @@ public class WorldWindUI extends ApplicationTemplate {
                         try {
                             CameraControlWindow ccw1 = new CameraControlWindow(getWwd());
                             ccw1.setVisible(true);
-                            NewCameraControlMenu QQ = new NewCameraControlMenu(getWwd());
-                            QQ.setVisible(true);
-                            //spawn a separate thread
+//                            MARKED FOR DELETION
+//                            NewCameraControlMenu QQ = new NewCameraControlMenu(getWwd());
+//                            QQ.setVisible(true);
+                            CameraControlJPanel CCJP = new CameraControlJPanel(getWwd());
+                            CCJP.setVisible(true);
+                            
+//spawn a separate thread
                             Path dir = Paths.get("c:/test1");
                             // works as static process, but cannot talk to CamUI runtime
                             // *************
@@ -289,11 +293,18 @@ public class WorldWindUI extends ApplicationTemplate {
                         dateBegin = jTextField1.getText();
                         dateEnd = jTextField2.getText();
                         subDelta = Integer.parseInt(jTextField4.getText());
+                        delta = (end.getTime() - begin.getTime()) / subDelta;
+                        begin = WxOpsKMLTimeSpan.parseTimeString(dateBegin);
+                        end = WxOpsKMLTimeSpan.parseTimeString(dateEnd);
+                        // system test readout
+//                        System.out.println(dateBegin);
+//                        System.out.println(dateEnd);
+//                        System.out.println(subDelta);
 
                     } catch (Exception e) {
                         e.printStackTrace();
-                        AnimationControlHelp test = new AnimationControlHelp(); // Bring in arguments
-                        test.setVisible(true);
+                        AnimationHelpJPanel test = new AnimationHelpJPanel(); // Bring in arguments
+                        new AnimationHelpJPanel().setVisible(true);
                     }
                 }
             });
@@ -331,7 +342,11 @@ public class WorldWindUI extends ApplicationTemplate {
             }
             //    jTextArea1.setText(date.toString()); // print the sting a text file on screen. to know when dates/time
             getWwd().redraw();
+            // Consoul readout of dates
             System.out.println(date);
+             System.out.println(dateBegin);
+                        System.out.println(dateEnd);
+                        System.out.println(subDelta);
             dateTextField.setValue(date);
         }
 

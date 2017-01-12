@@ -1,15 +1,9 @@
 package WxOps.Worldwind;
 
 import gov.nasa.worldwind.*;
-import gov.nasa.worldwind.avlist.AVKey;
 import gov.nasa.worldwind.geom.*;
 import gov.nasa.worldwind.view.orbit.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import javax.swing.JSlider;
 import javax.swing.JFrame;
-import java.awt.Dialog.ModalityType;
-import java.awt.*;
 import java.awt.event.*;
 import java.util.Calendar;
 import java.util.TimeZone;

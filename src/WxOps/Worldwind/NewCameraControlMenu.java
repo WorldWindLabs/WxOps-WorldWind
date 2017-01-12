@@ -10,12 +10,15 @@ import gov.nasa.worldwind.WorldWindow;
 import gov.nasa.worldwind.geom.Angle;
 import gov.nasa.worldwind.geom.Position;
 import gov.nasa.worldwind.view.orbit.BasicOrbitView;
-import javax.swing.JFrame;
 
 /**
  *
  * @author PC
  */
+
+// MARKED FOR DELETION
+
+
 public class NewCameraControlMenu extends javax.swing.JPanel {
  
     private int c;
