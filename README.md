@@ -72,16 +72,16 @@ Input must match the following format Example: 2008-07-23T18:02:00Z where (Year)
 Animation Data can be found at: https://wxops.com/demo under Hurrican Dolly.
 
 Input the following data 
-Date Begin: 	2008-07-23T18:02:00Z
-Date End:	2008-07-23T18:56:00Z
-Time Delta:	9
+* Date Begin: 	2008-07-23T18:02:00Z
+* Date End:	2008-07-23T18:56:00Z
+* Time Delta:	9
 
 ---------------------------------------------
 
 ##4. Future Plans
 
-*Dynamic Animation support 
-*Increase KML data functionality 
+* Dynamic Animation support 
+* Increase KML data functionality 
 
 ---------------------------------------------
 
@@ -90,7 +90,8 @@ Time Delta:	9
 * Kml files cannot be removed once added, however, the files can be disabled in the layer menu. 
 * The icons for some KML data are unusually sized.
 * Camera Control menu cannot be closed without closing the application
-* Current Time UI element doesn't display time. 
+* Current Time UI elements do not display on iOS. 
+ 
 ---------------------------------------------
 
 ##6. Change Log

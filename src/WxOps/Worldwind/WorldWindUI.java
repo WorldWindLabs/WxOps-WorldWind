@@ -203,6 +203,8 @@ public class WorldWindUI extends ApplicationTemplate {
                         try {
                             CameraControlWindow ccw1 = new CameraControlWindow(getWwd());
                             ccw1.setVisible(true);
+                            NewCameraControlMenu QQ = new NewCameraControlMenu(getWwd());
+                            QQ.setVisible(true);
                             //spawn a separate thread
                             Path dir = Paths.get("c:/test1");
                             // works as static process, but cannot talk to CamUI runtime
@@ -268,7 +270,7 @@ public class WorldWindUI extends ApplicationTemplate {
             jTextField2.setValue(end);
             menuBar.add(jTextField2);
             // Adds the Current date code. 
-            label4 = new JLabel(" Current Date (Do not edit):");
+            label4 = new JLabel(" Current Date :");
             menuBar.add(label4);
             dateTextField = new JFormattedTextField(dateFormat); //Current Date should be formated like 2008-07-23T18:56:00Z
             menuBar.add(dateTextField);
