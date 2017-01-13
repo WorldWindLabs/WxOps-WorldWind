@@ -59,7 +59,7 @@ public class CameraControlJPanel extends JFrame {
 
         constraints.gridx = 1;
         CameraControlPanel.add(textLong, constraints);
-        textLong.setText("-75.00000");
+        //textLong.setText("-75.00000");
 
         //Lat
         constraints.gridx = 0;
@@ -68,7 +68,7 @@ public class CameraControlJPanel extends JFrame {
 
         constraints.gridx = 1;
         CameraControlPanel.add(textLat, constraints);
-        textLat.setText("38.00000");
+        //textLat.setText("38.00000");
         //Alt
         constraints.gridx = 0;
         constraints.gridy = 2;
@@ -76,7 +76,7 @@ public class CameraControlJPanel extends JFrame {
 
         constraints.gridx = 1;
         CameraControlPanel.add(textAlt, constraints);
-        textAlt.setText("19070000.0");
+        //textAlt.setText("19070000.0");
 
         //Roll
         constraints.gridx = 0;
@@ -85,7 +85,7 @@ public class CameraControlJPanel extends JFrame {
 
         constraints.gridx = 1;
         CameraControlPanel.add(textRoll, constraints);
-        textRoll.setText("0.000");
+        //textRoll.setText("0.000");
 
         //Tilt
         constraints.gridx = 0;
@@ -94,7 +94,7 @@ public class CameraControlJPanel extends JFrame {
 
         constraints.gridx = 1;
         CameraControlPanel.add(textTilt, constraints);
-        textTilt.setText("0.00");
+        //textTilt.setText("0.00");
 
         //Azi
         constraints.gridx = 0;
@@ -102,7 +102,7 @@ public class CameraControlJPanel extends JFrame {
         CameraControlPanel.add(labelAzi, constraints);
         constraints.gridx = 1;
         CameraControlPanel.add(textAzi, constraints);
-        textAzi.setText("0.000");
+        //textAzi.setText("0.000");
         
         //FOV
         constraints.gridx = 0;
@@ -111,7 +111,7 @@ public class CameraControlJPanel extends JFrame {
 
         constraints.gridx = 1;
         CameraControlPanel.add(textFOV, constraints);
-        textFOV.setText("45.000");
+        //textFOV.setText("45.000");
 
 //        constraints.gridx = 0;
 //        constraints.gridy = 7;
@@ -156,6 +156,34 @@ public class CameraControlJPanel extends JFrame {
 
         pack();
         setLocationRelativeTo(null);
+        
+        
+        
+        //buttonGetPOVActionPerformed(ae); // Call the Get POV button, Not working.
+        View view = this.wwd.getView();
+        Position p = view.getEyePosition();
+
+        //lat and lon
+        textLong.setText(String.format("%.5f", p.longitude.degrees)); //lon
+        textLat.setText(String.format("%.5f", p.latitude.degrees)); //lat
+
+        double z = p.getElevation();
+        textAlt.setText(String.format("%.1f", z));
+
+        double roll = view.getRoll().degrees;
+        textRoll.setText(String.format("%.3f", roll));
+
+        //tilt which is pitch in WWJ
+        double tilt = view.getPitch().degrees;
+        textTilt.setText(String.format("%.3f", tilt));
+
+        //azimuth which is heading in WWJ
+        double azi = view.getHeading().degrees;
+        textAzi.setText(String.format("%.3f", azi));
+
+        //field of view
+        double fov = view.getFieldOfView().degrees;
+        textFOV.setText(String.format("%.3f", fov));
 
     }
 
