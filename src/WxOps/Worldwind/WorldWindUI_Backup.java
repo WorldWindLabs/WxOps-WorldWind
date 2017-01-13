@@ -1,8 +1,8 @@
-/*
- * Copyright (C) 2012 United States Government as represented by the Administrator of the
- * National Aeronautics and Space Administration.
- * All Rights Reserved.
- */
+////*
+// * Copyright (C) 2012 United States Government as represented by the Administrator of the
+// * National Aeronautics and Space Administration.
+// * All Rights Reserved.
+// */
 package WxOps.Worldwind;
 
 import gov.nasa.worldwindx.examples.util.*;
@@ -39,7 +39,7 @@ import java.awt.Dimension;
 import java.text.SimpleDateFormat;
 
 // @author pSubacz & vHaley, updated wxazygy 11 Jan 2017
-public class WorldWindUI extends ApplicationTemplate {
+public class WorldWindUI_Backup extends ApplicationTemplate {
 
     public static class AppFrame extends ApplicationTemplate.AppFrame {
 
@@ -138,7 +138,7 @@ public class WorldWindUI extends ApplicationTemplate {
                         int status = fileChooser.showOpenDialog(AppFrame.this);
                         if (status == JFileChooser.APPROVE_OPTION) {
                             for (File file : fileChooser.getSelectedFiles()) {
-                                new WorldWindUI.WorkerThread(file, AppFrame.this).start();
+                                new WorldWindUI_Backup.WorkerThread(file, AppFrame.this).start();
                             }
                         }
                     } catch (Exception e) {
@@ -156,7 +156,7 @@ public class WorldWindUI extends ApplicationTemplate {
                     try {
                         String status = JOptionPane.showInputDialog(AppFrame.this, "URL");
                         if (!WWUtil.isEmpty(status)) {
-                            new WorldWindUI.WorkerThread(status.trim(), AppFrame.this).start();
+                            new WorldWindUI_Backup.WorkerThread(status.trim(), AppFrame.this).start();
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
