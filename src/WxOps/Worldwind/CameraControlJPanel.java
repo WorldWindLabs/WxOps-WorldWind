@@ -51,6 +51,7 @@ public class CameraControlJPanel extends JFrame {
         constraints.insets = new Insets(10, 10, 10, 10);
 
         // add components to the panel
+        
         //Long
         constraints.gridx = 0;
         constraints.gridy = 0;
@@ -58,6 +59,7 @@ public class CameraControlJPanel extends JFrame {
 
         constraints.gridx = 1;
         CameraControlPanel.add(textLong, constraints);
+        textLong.setText("-75.00000");
 
         //Lat
         constraints.gridx = 0;
@@ -66,7 +68,7 @@ public class CameraControlJPanel extends JFrame {
 
         constraints.gridx = 1;
         CameraControlPanel.add(textLat, constraints);
-
+        textLat.setText("38.00000");
         //Alt
         constraints.gridx = 0;
         constraints.gridy = 2;
@@ -74,6 +76,7 @@ public class CameraControlJPanel extends JFrame {
 
         constraints.gridx = 1;
         CameraControlPanel.add(textAlt, constraints);
+        textAlt.setText("19070000.0");
 
         //Roll
         constraints.gridx = 0;
@@ -82,6 +85,7 @@ public class CameraControlJPanel extends JFrame {
 
         constraints.gridx = 1;
         CameraControlPanel.add(textRoll, constraints);
+        textRoll.setText("0.000");
 
         //Tilt
         constraints.gridx = 0;
@@ -90,14 +94,16 @@ public class CameraControlJPanel extends JFrame {
 
         constraints.gridx = 1;
         CameraControlPanel.add(textTilt, constraints);
+        textTilt.setText("0.00");
 
         //Azi
         constraints.gridx = 0;
         constraints.gridy = 5;
         CameraControlPanel.add(labelAzi, constraints);
-
         constraints.gridx = 1;
         CameraControlPanel.add(textAzi, constraints);
+        textAzi.setText("0.000");
+        
         //FOV
         constraints.gridx = 0;
         constraints.gridy = 6;
@@ -105,13 +111,14 @@ public class CameraControlJPanel extends JFrame {
 
         constraints.gridx = 1;
         CameraControlPanel.add(textFOV, constraints);
+        textFOV.setText("45.000");
 
-        constraints.gridx = 0;
-        constraints.gridy = 7;
-        CameraControlPanel.add(labelLat, constraints);
-
-        constraints.gridx = 1;
-        CameraControlPanel.add(textLat, constraints);
+//        constraints.gridx = 0;
+//        constraints.gridy = 7;
+//        CameraControlPanel.add(labelLat, constraints);
+//
+//        constraints.gridx = 1;
+//        CameraControlPanel.add(textLat, constraints);
 
         //Buttons are here
         constraints.gridx = 0;
