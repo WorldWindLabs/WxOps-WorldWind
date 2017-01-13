@@ -7,7 +7,7 @@ package WxOps.Worldwind;
 
 /**
  *
- * @author PC
+ * @author pSubacz
  */
 import java.awt.*;
 import java.awt.event.*;
