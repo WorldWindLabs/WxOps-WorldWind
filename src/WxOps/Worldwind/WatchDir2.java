@@ -31,7 +31,8 @@ import javax.swing.SwingUtilities;
 
 /**
  *
- * @author wxazygy, updated 9 Jan 2017
+ * @author wxazygy, updated 14 Jan 2017
+ * adding getPOV() function
  */
 public class WatchDir2 {
 
@@ -203,18 +204,16 @@ public class WatchDir2 {
         }
     }
 
-    public void readCmdArgs(String file) {
-
-        File inFile = new File(file);
+    public void readCmdArgs(String file1) {
+        File inFile = new File(file1);
         if (!inFile.isFile()) {
             //System.out.println("Parameter is not an existing file");
             return;
         }
-
         try {
             //Construct the log file 
             //File logFile = new File(inFile.getAbsolutePath() + "log.txt");
-            BufferedReader br = new BufferedReader(new FileReader(file));
+            BufferedReader br = new BufferedReader(new FileReader(file1));
             PrintWriter pw = new PrintWriter(new FileWriter(logFile, true));
             String line;
             //Read from the original file and write to the new 
@@ -250,10 +249,8 @@ public class WatchDir2 {
     }
 
     void processCmd(String cmd) {
-
         String[] args = cmd.split(",");
-        
-        if (args[0].indexOf("pov") >= 0) {
+        if (args[0].indexOf("setpov") >= 0) {
             final String lon = args[1];
             final String lat = args[2];
             final String rng = args[3];
@@ -271,15 +268,17 @@ public class WatchDir2 {
             });
         }
         
-        // TODO determine which command to invoke and its arguments
-        // NOTE make variables that need to be accessed in invokeLater final
-        // final String latitude = ;;;
-        //SwingUtilities.invokeLater(new Runnable() {
-        //    public void run() {
-        //        // TODO call the appropriate methods on CamUI, e.g. setPov
-        //        // getCamUI().doTheThing(...)
-        //    }
-        //});
+        if (args[0].indexOf("getpov") >= 0) {
+            
+            System.out.println("getpov heya");
+            //get the current POV
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    getCamUI().jgetPOV();
+                }
+            });
+                                  
+        }
     }
-
+   
 }
