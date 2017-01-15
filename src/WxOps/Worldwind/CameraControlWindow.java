@@ -5,18 +5,25 @@ import gov.nasa.worldwind.geom.*;
 import gov.nasa.worldwind.view.orbit.*;
 import javax.swing.JFrame;
 import java.awt.event.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.TimeZone;
 import javax.swing.*;
 
 /**
  *
- * @author pSubacz, wxazygy 9 Jan 2017
+ * @author pSubacz, wxazygy 9 Jan 2017, updated 14 Jan 2017
+ * added jgetPOV() to support getPOV function
  */
 public class CameraControlWindow extends javax.swing.JFrame {
 
     private int c;
     private WorldWindow wwd;
+    private String pov;
+    private String responseFile = "";
+    private String response = "";
     //public CameraControlWindow ccw;
  
     public CameraControlWindow(WorldWindow wwd) { // This section initialise the generated code.
@@ -27,7 +34,8 @@ public class CameraControlWindow extends javax.swing.JFrame {
 //            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); This function will end the program 
         }
         //ccw = this;
-        this.setTitle("Camera");
+        this.setTitle("POV");
+        refreshGET();
     }
 
     @SuppressWarnings("unchecked")
@@ -215,7 +223,9 @@ public class CameraControlWindow extends javax.swing.JFrame {
     }                                          
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-
+        refreshGET();
+    }
+    private void refreshGET() {
         View view = this.wwd.getView();
         Position p = view.getEyePosition();
 
@@ -242,11 +252,49 @@ public class CameraControlWindow extends javax.swing.JFrame {
         jTextField7.setText(String.format("%.3f", fov));
     }                                        
 
+    
+   
+    public void jgetPOV() {
+        View view = this.wwd.getView();
+        Position p = view.getEyePosition();;
+        pov = "getpov,";
+        pov = pov + String.format("%.5f", p.longitude.degrees) + ",";
+        pov = pov + String.format("%.5f", p.latitude.degrees) + ","; 
+        double z = p.getElevation();
+        pov = pov + String.format("%.1f", z) + ","; 
+        double roll = view.getRoll().degrees;
+        pov = pov + String.format("%.3f", roll) + ","; 
+        double tilt = view.getPitch().degrees;
+        pov = pov + String.format("%.3f", tilt) + ","; 
+        double azi = view.getHeading().degrees;
+        pov = pov + String.format("%.3f", azi) + ","; 
+        double fov = view.getFieldOfView().degrees;
+        pov = pov + String.format("%.3f", fov) + ",5"; 
+       
+        //write pov to response
+        responseFile = "C:/test1/response.txt";
+        response = pov;
+        //write to response.txt
+        writeCmdArgs(response);
+        
+    }
+     public void writeCmdArgs(String line) {
+        try {
+            PrintWriter pw2 = new PrintWriter(new FileWriter(responseFile, false));
+            pw2.println(line);
+            pw2.flush();
+            pw2.close();   
+        } catch (IOException x) {
+                        // ignore to keep sample readbale
+        }
+    }
+    
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        refresh();
+        refreshSET();
     } 
     
-    private void refresh() {
+    private void refreshSET() {
         BasicOrbitView view = (BasicOrbitView) this.wwd.getView();
         view.setEyePosition(Position.fromDegrees(Double.parseDouble(jTextField2.getText()), Double.parseDouble(jTextField1.getText()), Double.parseDouble(jTextField3.getText())));
         view.setRoll(Angle.fromDegrees(Double.parseDouble(jTextField4.getText())));
@@ -268,7 +316,7 @@ public class CameraControlWindow extends javax.swing.JFrame {
             jTextField5.setText(sTilt);//azimuth which is heading in WWJ
             jTextField6.setText(sAzi);
             jTextField7.setText(sFOV);//field of view
-            refresh();
+            refreshSET();
         } catch (Exception ex) {
             System.out.println(ex.toString());
         }
