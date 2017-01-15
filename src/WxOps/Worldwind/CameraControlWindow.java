@@ -66,19 +66,13 @@ public class CameraControlWindow extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Longitude");
-
         jLabel2.setText("Latitude");
-
         jLabel3.setText("Altitude(z)");
-
         jLabel4.setText("Roll");
-
         jLabel5.setText("Tilt");
-
         jLabel6.setText("Azimuth");
-
         jLabel7.setText("F.O.V.");
-
+        
         jButton1.setText("Get Camera");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,8 +87,7 @@ public class CameraControlWindow extends javax.swing.JFrame {
             }
         });
         
-        
-        jCheckBox1.setText("Start Clock");
+        jCheckBox1.setText("UTC Clock");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox1ActionPerformed(evt);
@@ -102,19 +95,12 @@ public class CameraControlWindow extends javax.swing.JFrame {
         });
 
         jLabel8.setText(" Camera Control Panel");
-
         jTextField1.setText("(Null)");
-
         jTextField2.setText("(Null)");
-
         jTextField3.setText("(Null)");
-
         jTextField4.setText("(Null)");
-
         jTextField5.setText("(Null)");
-
         jTextField6.setText("(Null)");
-
         jTextField7.setText("(Null)");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -210,16 +196,14 @@ public class CameraControlWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
+    private Timer twx1;
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
-// If the checkbox is clicked, the counter 
-  //      if (c == 0) {
-  //          c = 0;
-  //          c++;
-  //      } else {
-  //          c = 0;
-  //      }
-        Timer twx = new Timer(1000, new ClockListener());
-        twx.start();
+        if (jCheckBox1.isSelected()) {
+            twx1 = new Timer(1000, new ClockListener());
+            twx1.start();
+        } else {
+            twx1.stop();
+        }
     }                                          
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
@@ -252,8 +236,6 @@ public class CameraControlWindow extends javax.swing.JFrame {
         jTextField7.setText(String.format("%.3f", fov));
     }                                        
 
-    
-   
     public void jgetPOV() {
         View view = this.wwd.getView();
         Position p = view.getEyePosition();;
