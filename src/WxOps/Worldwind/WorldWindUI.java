@@ -41,6 +41,13 @@ import java.text.SimpleDateFormat;
 // @author pSubacz & vHaley, updated wxazygy 11 Jan 2017
 public class WorldWindUI extends ApplicationTemplate {
 
+    static void setTimeANI(String validTime) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //date.setTime(date3.getTime());
+        //getWwd().redraw(); 
+    }
+
+
     public static class AppFrame extends ApplicationTemplate.AppFrame {
 
         static {
@@ -54,12 +61,8 @@ public class WorldWindUI extends ApplicationTemplate {
         protected HotSpotController hotSpotController;
         protected KMLApplicationController kmlAppController;
         protected BalloonController balloonController;
-        private WorldWindow wwd;
-//        Disabled to defer varibles into the animation control popup menu        
-//        protected Date begin = WxOpsKMLTimeSpan.parseTimeString("2008-07-23T18:02:00Z");
-//        protected Date end = WxOpsKMLTimeSpan.parseTimeString("2008-07-23T18:56:00Z");
-//        protected long delta = (end.getTime() - begin.getTime()) / 9; // divided by  due to hard coding timesteps.
-//        The variables below should 
+
+        //Animation parameters
         String dateBegin = "2008-07-23T18:02:00Z";
         String dateEnd = "2008-07-23T18:56:00Z";
         protected Date begin = WxOpsKMLTimeSpan.parseTimeString(dateBegin);
@@ -67,13 +70,14 @@ public class WorldWindUI extends ApplicationTemplate {
         protected int subDelta = 9;
         protected long delta = (end.getTime() - begin.getTime()) / subDelta; // divided by  due to hard coding timesteps.       
         protected Date date = new Date(begin.getTime());
-        protected JFormattedTextField dateTextField;
-        protected Timer timer = new Timer(500, new ActionListener() {
+       // protected JFormattedTextField dateTextField;
+        protected Timer timer = new Timer(250, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 onTimerFired();
             }
         });
+
 
         public AppFrame() {
             super(true, false, false); // Leave as is unless a the side panel for Windlayers is needed.
@@ -110,10 +114,7 @@ public class WorldWindUI extends ApplicationTemplate {
             // The following are UI components to be used later. Note: Need to fix naming stucture
             JMenuBar menuBar;
         //sts JMenu fileSubmenu, viewSubmenu;
-            JMenuItem viewMenu, editMenu, helpMenu ,openHelpItem, animationMenu, openFileMenuItem, openURLMenuItem, openCameraControlItem, playMenuItem, animationMenuItem;
-            JLabel label1, label2, label3, label4, label5, label6, label7, label8, label9;
-            JFormattedTextField jTextField1, jTextField2;
-            JTextField jTextField4;
+            JMenuItem viewMenu, editMenu, helpMenu ,openHelpItem, openFileMenuItem, openURLMenuItem, openCameraControlItem;
             final JFileChooser fileChooser = new JFileChooser();
             fileChooser.setMultiSelectionEnabled(true);
             fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("KML/KMZ File", "kml", "kmz"));
@@ -127,8 +128,6 @@ public class WorldWindUI extends ApplicationTemplate {
 //-------------File-Submenu----------------------------------------
             // The Following Code creates a menu item that has seperate items.
             fileMenu.addSeparator();
-        //sts fileSubmenu = new JMenu("Open KML Data");
-        //sts  fileSubmenu.setMnemonic(KeyEvent.VK_S); // Mnemonic allows for hotkeys
             // Open KML File
             // The Following section allows for the importing of KML files from any directory to the local WorldWind directory. NOTICE: IMPORTED FILES ARE NOT SAVED!
             openFileMenuItem = new JMenuItem("Open KML File..."); // This button opens a file selection tool to import a KML files
@@ -148,9 +147,26 @@ public class WorldWindUI extends ApplicationTemplate {
                 }
             });
             fileMenu.add(openFileMenuItem);
-            
-        //sts fileSubmenu.add(openFileMenuItem);
-            // Open KML URL
+
+            // Open KML URL #1
+            // The Following section allows for the importing of KML files from a online URL address to the local WorldWind directory. NOTICE: IMPORTED FILES ARE NOT SAVED!
+            openURLMenuItem = new JMenuItem("Open KML Url...");
+            openURLMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, ActionEvent.ALT_MASK));
+            openURLMenuItem.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent actionEvent) {
+                    try {
+                        String status = JOptionPane.showInputDialog(AppFrame.this, "URL","http://wxops.com/demo/Dolly.kmz");
+                        if (!WWUtil.isEmpty(status)) {
+                            new WorldWindUI.WorkerThread(status.trim(), AppFrame.this).start();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            fileMenu.add(openURLMenuItem);
+
+            // Open KML URL #2
             // The Following section allows for the importing of KML files from a online URL address to the local WorldWind directory. NOTICE: IMPORTED FILES ARE NOT SAVED!
             openURLMenuItem = new JMenuItem("Open KML Url...");
             openURLMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, ActionEvent.ALT_MASK));
@@ -167,9 +183,7 @@ public class WorldWindUI extends ApplicationTemplate {
                 }
             });
             fileMenu.add(openURLMenuItem);
-        //sts fileSubmenu.add(openURLMenuItem);
-        //sts fileMenu.add(fileSubmenu);
-
+            
 //--------------EDIT-Menu------------------------------------
             editMenu = new JMenu("Edit");
             editMenu.setMnemonic(KeyEvent.VK_E);
@@ -204,15 +218,8 @@ public class WorldWindUI extends ApplicationTemplate {
                         try {
                             CameraControlWindow ccw1 = new CameraControlWindow(getWwd());
                             ccw1.setVisible(true);
-//                            MARKED FOR DELETION
-//                            NewCameraControlMenu QQ = new NewCameraControlMenu(getWwd());
-//                            QQ.setVisible(true);
-                     //sts       CameraControlJPanel CCJP = new CameraControlJPanel(getWwd());
-                     //sts       CCJP.setVisible(true);
-                            
-//spawn a separate thread
                             Path dir = Paths.get("c:/test1");
-                            // works as static process, but cannot talk to CamUI runtime
+                            // spawn a separate thread
                             // *************
                             WatchDir2 watcher = new WatchDir2(dir, true);
                             watcher.setCamUI(ccw1);
@@ -220,7 +227,6 @@ public class WorldWindUI extends ApplicationTemplate {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
                 }
             });
@@ -234,95 +240,45 @@ public class WorldWindUI extends ApplicationTemplate {
             helpMenu.add(openHelpItem); // Adds the Set Camera Menu, 
             openCameraControlItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_7, ActionEvent.ALT_MASK));
 
-//--------------Animation-Menu-and-Buttons------------------------------------
+//--------------Animation-Menu------------------------------
             //The animation Menu allows a user to play animations found within the hardcoded timestamps.  
-            //Disabled, Code Below for menu buttons 
-//            animationMenu = new JMenu("Animation");
-//            animationMenu.setMnemonic(KeyEvent.VK_N);
-//            menuBar.add(animationMenu);
-////            This function menu item allows the users to toggle animations loaded in KML Files. Disables for testing
-//            playmenuItem = new JMenuItem("Play/Stop ");
-//            playmenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_5, ActionEvent.ALT_MASK));
-//            animationMenu.add(playmenuItem); // Adds play/stop button, 
-//            playmenuItem.addActionListener(new ActionListener() {   //The Following code is excuted when the button is pressed
-//                public void actionPerformed(ActionEvent actionEvent) {
-//                    try {
-//                        onPlayPressed();
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            });
-//            animationmenuItem = new JMenuItem("Open Animation Menu");
-//            animationmenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_6, ActionEvent.ALT_MASK));
-//            animationMenu.add(animationmenuItem);
-//            animationmenuItem.addActionListener(new ActionListener() {   //The Following code is excuted when the button is pressed
-//                public void actionPerformed(ActionEvent actionEvent) {
-//                    try {
-////                        AnimationControlWindow test = new AnimationControlWindow(dateBegin, dateEnd, subDelta); // Bring in arguments
-////                        test.setVisible(true);
-////                    } catch (Exception e) {
-////                        e.printStackTrace();
-//                    }
-//                }
-//            });
-// The following code creates a the animation controls in the menu bar
-            label1 = new JLabel("   Animation:  ");
-            menuBar.add(label1);
-// Creates the labels and text fields to support typing in the animation code. 
-            //Adds The Begin Date Code
-            label2 = new JLabel(" Begin Date: ");
-            menuBar.add(label2);//Date Begin should be formated like 2008-07-23T18:02:00Z
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-            jTextField1 = new JFormattedTextField(dateFormat);
-            jTextField1.setValue(begin);
-            menuBar.add(jTextField1);
-            // Adds the End date code
-            label3 = new JLabel(" End Date: ");
-            menuBar.add(label3);
-            jTextField2 = new JFormattedTextField(dateFormat);//Date Begin should be formated like 2008-07-23T18:56:00Z
-            jTextField2.setValue(end);
-            menuBar.add(jTextField2);
-            // Adds the Current date code. 
-            label4 = new JLabel(" Current Date :");
-            menuBar.add(label4);
-            dateTextField = new JFormattedTextField(dateFormat); //Current Date should be formated like 2008-07-23T18:56:00Z
-            menuBar.add(dateTextField);
-            dateTextField.setValue(date);
-            label5 = new JLabel(" Animation Delta: ");
-            menuBar.add(label5);
-            jTextField4 = new JTextField(); //Current Date should be formated like 2008-07-23T18:56:00Z
-            menuBar.add(jTextField4);
-            jTextField4.setText(Integer.toString(subDelta));
-//          Button 2 should grab the text input from the text fields Assumeing that ther are  
-            JButton button2 = new JButton(" Set Animation Arguements ");
-            menuBar.add(button2, BorderLayout.PAGE_END);
-            button2.addActionListener(new ActionListener() {   //The Following code is excuted when the button is pressed
-                public void actionPerformed(ActionEvent actionEvent) {
-                    try {
-                        dateBegin = jTextField1.getText();
-                        dateEnd = jTextField2.getText();
-                        subDelta = Integer.parseInt(jTextField4.getText());
-                        delta = (end.getTime() - begin.getTime()) / subDelta;
-                        begin = WxOpsKMLTimeSpan.parseTimeString(dateBegin);
-                        end = WxOpsKMLTimeSpan.parseTimeString(dateEnd);
-                        // system test readout
-//                        System.out.println(dateBegin);
-//                        System.out.println(dateEnd);
-//                        System.out.println(subDelta);
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        AnimationHelpJPanel test = new AnimationHelpJPanel(); // Bring in arguments
-                        new AnimationHelpJPanel().setVisible(true);
+            viewMenu = new JMenu("Animation");
+            viewMenu.setMnemonic(KeyEvent.VK_V);
+            menuBar.add(viewMenu);
+            
+            // The following code creates a pop-up window that allows users to control the camera via typing input commands. The menu can be found in the file called CameraControlWindow.java
+            openCameraControlItem = new JMenuItem("Animation Controls ");
+            openCameraControlItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.ALT_MASK)); // Sets a Hotkey to 
+            openCameraControlItem.addActionListener(new ActionListener() {   //The Following code is excuted when the button is pressed
+                public void actionPerformed(ActionEvent actionEvent) {
+                    boolean aniRunning = false;
+                    // show/hide the Camera Control Form
+                    Frame[] frames = Frame.getFrames();
+                    for (int i = 0; i < frames.length; i++) {
+                        String title = frames[i].getTitle();
+                        if (title == "ANI") {
+                            aniRunning = true;
+                            boolean vis = frames[i].isVisible();
+                            vis = !vis;
+                            frames[i].setVisible(vis);
+                        }
+                        //System.out.println(title + " = " + vis);
+                    }
+                    if (!aniRunning) {
+                        try {
+                            AnimationControlWindow ani1 = new AnimationControlWindow(getWwd());
+                            ani1.setVisible(true);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             });
-
-            //Creates a button that will play and pause animtion
-            JButton button1 = new JButton(" Animation Play/Pause ");
-            menuBar.add(button1, BorderLayout.PAGE_END);
-            button1.addActionListener(new ActionListener() {   //The Following code is excuted when the button is pressed
+            viewMenu.add(openCameraControlItem); // Adds the Set Camera Menu,
+            openCameraControlItem = new JMenuItem("Start");
+            openCameraControlItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.ALT_MASK)); // Sets a Hotkey to 
+            openCameraControlItem.addActionListener(new ActionListener() {   //The Following code is excuted when the button is pressed
                 public void actionPerformed(ActionEvent actionEvent) {
                     try {
                         onPlayPressed();
@@ -331,12 +287,8 @@ public class WorldWindUI extends ApplicationTemplate {
                     }
                 }
             });
-//            JButton button3 = new JButton("Rewind");
-//            menuBar.add(button3, BorderLayout.PAGE_END);
-//            JButton button4 = new JButton("Long-Named Button 4 (PAGE_END)");
-//            menuBar.add(button1, BorderLayout.PAGE_END);
-
-
+            viewMenu.add(openCameraControlItem); // Adds the Start ANI Menu,
+               
         }
 
         protected void onPlayPressed() {    // When the item is selected the timer is stoped and started.
@@ -346,7 +298,7 @@ public class WorldWindUI extends ApplicationTemplate {
                 timer.start();
             }
         }
-
+        
         protected void onTimerFired() {
             date.setTime(date.getTime() + delta);
             if (date.compareTo(end) > 0) {
@@ -356,10 +308,10 @@ public class WorldWindUI extends ApplicationTemplate {
             getWwd().redraw();
             // Consoul readout of dates
             System.out.println(date);
-             System.out.println(dateBegin);
+            System.out.println(dateBegin);
                         System.out.println(dateEnd);
                         System.out.println(subDelta);
-            dateTextField.setValue(date);
+            //dateTextField.setValue(date);
         }
 
         protected void addKMLLayer(KMLRoot kmlRoot) {
@@ -386,8 +338,10 @@ public class WorldWindUI extends ApplicationTemplate {
                     }
                 }
             });
-
-            layer.setValue(WxOpsConstants.DATE, date);
+            //sts - defeat this feature, time under user control
+            //after reading KML, attempt to set the Valid Time in AnimationControl
+            
+           layer.setValue(WxOpsConstants.DATE, date);
         }
     }
 
@@ -434,51 +388,22 @@ public class WorldWindUI extends ApplicationTemplate {
         if (kmlSource instanceof String && WWIO.makeURL((String) kmlSource) != null) {
             return WWIO.makeURL((String) kmlSource).getPath();
         }
-
         return "KML Layer";
     }
-//    These are test buttons that are not implemented.  
-//    private void animationPlayButton() {
-//
-//        aniplayButton = new JButton("Start/Stop Animation");
-//        aniplayButton.setVerticalTextPosition(AbstractButton.CENTER);
-//        aniplayButton.setHorizontalTextPosition(AbstractButton.LEADING); //aka LEFT, for left-to-right locales
-//        aniplayButton.setMnemonic(KeyEvent.VK_D);
-//        aniplayButton.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(java.awt.event.ActionEvent evt) {
-//            }
-//        });
-//    }
-//
-//    private void animationStopButton() {
-//
-//        anistopButton = new JButton("Start/Stop Animation");
-//        anistopButton.setVerticalTextPosition(AbstractButton.CENTER);
-//        anistopButton.setHorizontalTextPosition(AbstractButton.LEADING); //aka LEFT, for left-to-right locales
-//        anistopButton.setMnemonic(KeyEvent.VK_D);
-//        anistopButton.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(java.awt.event.ActionEvent evt) {
-//
-//            }
-//        });
-//    }
+    
+
+
+    
 
     public static void main(String[] args) {
-        final AppFrame af = (AppFrame) start("WxOps Inc. WorldWind Earth 0.6.0", AppFrame.class);
-
-        // create the CameraControlWindow and stay resident
-        //    try {     
-        //        final CameraControlWindow ccw = new CameraControlWindow(wwd);
-        //        ccw.setVisible(true);
-        //        } catch (Exception e) {
-        //            e.printStackTrace();
-        //        }
-        /* Create and display the form */
+        final AppFrame af = (AppFrame) start("WxOps Inc. WorldWind Earth 0.6.1", AppFrame.class);
+        //09 Jan 2017 version 0.6.1
+        //15 Jan 2017 version 0.6.2 (SBIR Phase 1 Deliverable)
     }
 
     // Variables declaration - do not modify   
     protected static ViewControlsLayer viewControlsLayer;
     private static WorldWindow wwd;
     protected JButton aniplayButton, anistopButton;
-    Boolean animationFlag = false;
+    //Boolean animationFlag = false;
 }
