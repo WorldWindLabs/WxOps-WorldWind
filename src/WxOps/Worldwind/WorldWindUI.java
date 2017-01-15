@@ -109,7 +109,7 @@ public class WorldWindUI extends ApplicationTemplate {
         {
             // The following are UI components to be used later. Note: Need to fix naming stucture
             JMenuBar menuBar;
-            JMenu fileSubmenu, viewSubmenu;
+        //sts JMenu fileSubmenu, viewSubmenu;
             JMenuItem viewMenu, editMenu, helpMenu ,openHelpItem, animationMenu, openFileMenuItem, openURLMenuItem, openCameraControlItem, playMenuItem, animationMenuItem;
             JLabel label1, label2, label3, label4, label5, label6, label7, label8, label9;
             JFormattedTextField jTextField1, jTextField2;
@@ -127,10 +127,11 @@ public class WorldWindUI extends ApplicationTemplate {
 //-------------File-Submenu----------------------------------------
             // The Following Code creates a menu item that has seperate items.
             fileMenu.addSeparator();
-            fileSubmenu = new JMenu("Open KML Data");
-            fileSubmenu.setMnemonic(KeyEvent.VK_S); // Mnemonic allows for hotkeys
+        //sts fileSubmenu = new JMenu("Open KML Data");
+        //sts  fileSubmenu.setMnemonic(KeyEvent.VK_S); // Mnemonic allows for hotkeys
+            // Open KML File
             // The Following section allows for the importing of KML files from any directory to the local WorldWind directory. NOTICE: IMPORTED FILES ARE NOT SAVED!
-            openFileMenuItem = new JMenuItem("Open File..."); // This button opens a file selection tool to import a KML files
+            openFileMenuItem = new JMenuItem("Open KML File..."); // This button opens a file selection tool to import a KML files
             openFileMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.ALT_MASK));
             openFileMenuItem.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent actionEvent) {
@@ -146,15 +147,17 @@ public class WorldWindUI extends ApplicationTemplate {
                     }
                 }
             });
-            fileSubmenu.add(openFileMenuItem);
-
+            fileMenu.add(openFileMenuItem);
+            
+        //sts fileSubmenu.add(openFileMenuItem);
+            // Open KML URL
             // The Following section allows for the importing of KML files from a online URL address to the local WorldWind directory. NOTICE: IMPORTED FILES ARE NOT SAVED!
-            openURLMenuItem = new JMenuItem("Open Url...");
+            openURLMenuItem = new JMenuItem("Open KML Url...");
             openURLMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, ActionEvent.ALT_MASK));
             openURLMenuItem.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent actionEvent) {
                     try {
-                        String status = JOptionPane.showInputDialog(AppFrame.this, "URL");
+                        String status = JOptionPane.showInputDialog(AppFrame.this, "URL","http://wxops.com/demo/WWE-11.kmz");
                         if (!WWUtil.isEmpty(status)) {
                             new WorldWindUI.WorkerThread(status.trim(), AppFrame.this).start();
                         }
@@ -163,8 +166,9 @@ public class WorldWindUI extends ApplicationTemplate {
                     }
                 }
             });
-            fileSubmenu.add(openURLMenuItem);
-            fileMenu.add(fileSubmenu);
+            fileMenu.add(openURLMenuItem);
+        //sts fileSubmenu.add(openURLMenuItem);
+        //sts fileMenu.add(fileSubmenu);
 
 //--------------EDIT-Menu------------------------------------
             editMenu = new JMenu("Edit");
@@ -187,7 +191,7 @@ public class WorldWindUI extends ApplicationTemplate {
                     Frame[] frames = Frame.getFrames();
                     for (int i = 0; i < frames.length; i++) {
                         String title = frames[i].getTitle();
-                        if (title == "Camera") {
+                        if (title == "POV") {
                             ccwRunning = true;
                             boolean vis = frames[i].isVisible();
                             vis = !vis;
@@ -203,8 +207,8 @@ public class WorldWindUI extends ApplicationTemplate {
 //                            MARKED FOR DELETION
 //                            NewCameraControlMenu QQ = new NewCameraControlMenu(getWwd());
 //                            QQ.setVisible(true);
-                            CameraControlJPanel CCJP = new CameraControlJPanel(getWwd());
-                            CCJP.setVisible(true);
+                     //sts       CameraControlJPanel CCJP = new CameraControlJPanel(getWwd());
+                     //sts       CCJP.setVisible(true);
                             
 //spawn a separate thread
                             Path dir = Paths.get("c:/test1");
