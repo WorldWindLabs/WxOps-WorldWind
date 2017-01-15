@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package WxOps.Worldwind;
 
 import java.io.IOException;
@@ -45,6 +41,7 @@ public class WatchDir2 {
     private long endTime;
     public String cmdarg;
     private CameraControlWindow ccw2;
+    private AnimationControlWindow ani2;
 
     @SuppressWarnings("unchecked")
     <T> WatchEvent<T> cast(WatchEvent<?> event) {
@@ -97,12 +94,19 @@ public class WatchDir2 {
         keys.put(key, dir);
     }
 
+    //required to connect CameraControlWindow for comapi emulation
     public CameraControlWindow getCamUI() {
         return this.ccw2;
     }
-
     public void setCamUI(CameraControlWindow camUI) {
         this.ccw2 = camUI;
+    }
+    //required to connect AnimationControlWindow for comapi emulation   
+    public AnimationControlWindow getAniUI() {
+        return this.ani2;
+    }
+    public void setAniUI(AnimationControlWindow aniUI) {
+        this.ani2 = aniUI;
     }
 
     //Process all events for keys queued to the watcher
@@ -112,7 +116,6 @@ public class WatchDir2 {
                 doProcessEvents();
             }
         });
-
         t.setDaemon(true);
         t.start();
     }
@@ -167,7 +170,6 @@ public class WatchDir2 {
                         logFile = "c:/test1/log.txt";  //hardcoded for now
                         startTime = System.nanoTime();  //start Timer
                         readCmdArgs(fileName);
-
                         //jsetText();
                     }
                 }
@@ -269,16 +271,13 @@ public class WatchDir2 {
         }
         
         if (args[0].indexOf("getpov") >= 0) {
-            
             System.out.println("getpov heya");
             //get the current POV
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
                     getCamUI().jgetPOV();
                 }
-            });
-                                  
+            });                    
         }
     }
-   
 }
