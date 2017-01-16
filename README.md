@@ -5,7 +5,7 @@ Authors: Vanessa Haley & Peter Subacz
 ---------------------------------------------
 
 ##1. Introduction
-This Worldwind Earth application is built using NASA WorldWind with support from WxOps Inc. This WorldWind Earth application visualizes weather data and peforms animation by extending the NASA WorldWind JAVA Client. The main functions of this application allow users 1) load KML & KMZ, 2) manipulate the WorldWind Camera or Point of View (POV), and 3) animate KML with standard TimeSpans. The following hyperlink is an example of animation and weather data.
+This WorldWind Earth application is built using NASA WorldWind with support from WxOps Inc. This WorldWind Earth application visualizes weather data and performs animation by extending the NASA WorldWind JAVA Client. The main functions of this application allow users 1) load KML & KMZ, 2) manipulate the WorldWind Camera or Point of View (POV), and 3) animate KML with standard TimeSpans. The following hyperlink is an example of animation and weather data.
 
 Animation Example: https://www.youtube.com/watch?v=od7pc1fOsoo
 
@@ -112,7 +112,7 @@ The COM API emulation is currently initiated when the user invokes Camera Contro
 
 ##6. Data Rights
 
-You are granted a license to use and distribute the WorldWind Earth github content in accordance with the NASA WorldWind License at https://worldwind.arc.nasa.gov/LICENSE.html. The WorldWind Earth github content is comprised of the WorldWind JAVA Client and extensions developed by WxOps and the WWE User Community, up to and including the WxOps COM API Emulation of the Keyhole EarthLib functions. Rights are not NOT CONVEYED for WxOps(R) and WxAnalyst(R) Proprietary materials and intellectual property, including OpsTablet(R), WxAzygy(R), COLLADA Computing(TM), US Patent No. 8,392,853, US Patent Pub. No. 20160293021, and US Patent App. No. 15/336,411.
+You are granted rights to use and distribute the WorldWind Earth github content in accordance with the NASA WorldWind License at https://worldwind.arc.nasa.gov/LICENSE.html. The WorldWind Earth github content is comprised of the WorldWind JAVA Client and extensions developed by WxOps and the WWE User Community, up to and including the WxOps COM API Emulation of the Keyhole EarthLib functions. Rights are not NOT CONVEYED for WxOps(R) and WxAnalyst(R) Proprietary materials and intellectual property, including OpsTablet(R), WxAzygy(R), COLLADA Computing(TM), US Patent No. 8,392,853, US Patent Pub. No. 20160293021, and US Patent App. No. 15/336,411.
 
 ---------------------------------------------
 ##7. Contacts
