@@ -72,7 +72,6 @@ The WorldWindUI has a menu allowing for importing KML and KMZ files. This can be
 
 ####3.4 Animation 
 
-
 The WorldWindUI has elements to start and stop a time animation if a full KML or KMZ file contains a TimeSpan element. For the animation functionality to work correctly, the KML or KMZ file to animate must have its TimeSpan “Begin” and “End” values match the corresponding values assigned to the variables “start” and “end”. For the animation functionality to work correctly, the KML or KMZ file to animate must have its TimeSpan “Begin” and “End” values match the corresponding values assigned to the variables “start” and “end”. These time variables can be input into the corresponding text fields, if the values do not match, the animation will not function properly. Worldwind Earth has its default animation timestamps and delta set to allow for the demo animation "Hurricane Dolly" to function properly. 
 
 Input must match the following format Example: 2008-07-23T18:02:00Z where (Year)-(month)-(date)T(Hour):Minute(Second)Z
@@ -84,28 +83,29 @@ Input the following data
 * Date End:	2008-07-23T18:56:00Z
 * Time Delta:	9
 
+####3.5 COM API Emulation 
+
+The COM API emulation is currently initiated when the user invokes Camera Controls.  This is an advanced topic beyond the scope of this introduction.  Please refer to the user manual embedded in the github repository. Current IApplicationGE functions emulated are GetCamera() and SetCamera().
+
 ---------------------------------------------
 
 ##4. Future Plans
 
-* Dynamic Animation support 
-* Increase KML data functionality 
+* Dynamic Animation support
+* COM API Emulation for EarthLib IAnimationControllerGE (all functions)
+* COM API Emulation for IApplicationGE functions GetPointOnTerrainFromScreenCoordinates(), GetMainHWND(), GetRenderHWND(), and OpenKmlFile()
 
 ---------------------------------------------
 
 ##5. Known Issues
 
-* Kml files cannot be removed once added, however, the files can be disabled in the layer menu. 
+* Kml files cannot be removed once added, but are deleted upon WWE termination. 
 * The icons for some KML data are unusually sized.
-* Camera Control menu cannot be closed without closing the application
+* Camera Controls menu cannot be closed without closing the application, but can be hidden.
 * Current Time UI elements do not display on iOS. 
  
 ---------------------------------------------
+##6. Contacts
 
-##6. Change Log
-
-* Change Log 1/11/2017
-* Reworked Animation Controls 
-* Added new UI elements to allow for manual input of animation Data.
-* Added Animation Help Menu, This can be accessed clicking on Help > Animation 
-* Section 3.4 updated to reflect changes
+* Dr. Scott T. Shipley, WxOps CIO, sshipley@wxops.com
+* Peter Subacz, psubacz@wxops.com
