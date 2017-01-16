@@ -5,7 +5,7 @@ Authors: Vanessa Haley & Peter Subacz
 ---------------------------------------------
 
 ##1. Introduction
-This Worldwind Earth application is built into NASA WorldWind with support from the WxOps Inc. This WorldWind Earth application visualizes weather data and animation in NASA Worldwind. The main functions of this application allow users to manipulate the camera of WorldWind as well as plugin KML & KMZ data into the application. The following hyperlink is an example of animation and weather data.
+This Worldwind Earth application is built using NASA WorldWind with support from WxOps Inc. This WorldWind Earth application visualizes weather data and peforms animation by extending the NASA WorldWind JAVA Client. The main functions of this application allow users 1) load KML & KMZ, 2) manipulate the WordlWind Camera or Point of View (POV), and 3) animate KML with standard TimeSpans. The following hyperlink is an example of animation and weather data.
 
 Animation Example: https://www.youtube.com/watch?v=od7pc1fOsoo
 
