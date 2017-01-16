@@ -5,26 +5,33 @@ Authors: Vanessa Haley & Peter Subacz
 ---------------------------------------------
 
 ##1. Introduction
-This Worldwind Earth application is built using NASA WorldWind with support from WxOps Inc. This WorldWind Earth application visualizes weather data and peforms animation by extending the NASA WorldWind JAVA Client. The main functions of this application allow users 1) load KML & KMZ, 2) manipulate the WordlWind Camera or Point of View (POV), and 3) animate KML with standard TimeSpans. The following hyperlink is an example of animation and weather data.
+This Worldwind Earth application is built using NASA WorldWind with support from WxOps Inc. This WorldWind Earth application visualizes weather data and peforms animation by extending the NASA WorldWind JAVA Client. The main functions of this application allow users 1) load KML & KMZ, 2) manipulate the WorldWind Camera or Point of View (POV), and 3) animate KML with standard TimeSpans. The following hyperlink is an example of animation and weather data.
 
 Animation Example: https://www.youtube.com/watch?v=od7pc1fOsoo
 
 ---------------------------------------------
 ##2. Installation & Getting Started
 
-These steps outline how to run the WxOpsWorldwindEarth.jar from the command line.
+How to import the project into NETBEANS 8.2 IDE and run the main class.
 
 1. Download the project files on github.com
+2. Add the project to NETBEANS IDE by selecting: File>Import Project>From ZIP...
+3. Once the project is imported, compile the code by pressing the "Run Project" button
+4. In the Projects Tab, navigate to the main classes by selecting: WxOpsWorldwindEarth>Source Packages> WxOps.Worldwind> WorldWindUI.java
+
+How to Run WxOpsWorldwindEarth.jar from the command line.
+
+1. Download the project files on github.com and compile in NETBEANS IDE as described above
 2. Open a windows command prompt.
-3. Navigate to the WxopsWorldwindEarth directory and then go to the dist folder
-4. Next type the following in the command prompt: java -jar "WxOpsWorldwindEarth.jar" 
+3. Navigate to the WxopsWorldwindEarth directory and then go to the dist subfolder
+4. Type the following in the command prompt: java -jar "WxOpsWorldwindEarth.jar" 
 
-The steps below outline how to import the project into NETBEANS 8.2 IDE and run the main class.
+Alternate approach using JRE 8.
 
-1. Download the project files on github.com
-2. In the NETBEANS IDE add the project by selecting: File>Import Project>From ZIP...
-3. Once the project is imported, you can compile the code by pressing the "Run Project" button
-4. In the Projects Tab, you can navigate to the main classes by selecting: WxOpsWorldwindEarth>Source Packages> WxOps.Worldwind> WorldWindUI.java
+1. Download and install JAVA Runtime (JRE) 8 from  http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html
+2. Download dist.zip from https://wxops.com/demo/dist.zip
+3. Extract dist.zip into any local folder
+4. Open RUNME.BAT, or Run WxOpsWorldwindEarth.jar from the command line as described above
 
 ---------------------------------------------
 
