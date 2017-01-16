@@ -107,9 +107,15 @@ The COM API emulation is currently initiated when the user invokes Camera Contro
 * Camera Controls menu cannot be closed without closing the application, but can be hidden.
 * Current Time UI elements do not display on iOS. 
 * Hurricane Dolly TimeSpans hardcoded.
- 
+
 ---------------------------------------------
-##6. Contacts
+
+##6. Data Rights
+
+You are granted a license to use and distribute the WorldWind Earth github content in accordance with the NASA WorldWind License at https://worldwind.arc.nasa.gov/LICENSE.html. The WorldWind Earth github content is comprised of the WorldWind JAVA Client and extensions developed by WxOps and the WWE User Community, up to and including the WxOps COM API Emulation of the Keyhole EarthLib functions. Rights are not NOT CONVEYED for WxOps(R) and WxAnalyst(R) Proprietary materials and intellectual property, including OpsTablet(R), WxAzygy(R), COLLADA Computing(TM), and patents. 
+
+---------------------------------------------
+##7. Contacts
 
 * Dr. Scott T. Shipley, WxOps CIO, sshipley@wxops.com
 * Peter Subacz, psubacz@wxops.com
