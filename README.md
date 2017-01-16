@@ -41,8 +41,8 @@ Start the program using one of the methods provided in the section above. The ac
 
 * World Map - The World Map element is in the top left corner of the screen that reports the location of the center of the screen.
 * Compass - The Compass element is in the top right and reports the direction towards North as well as the tilt of the globe.
-* View Controls - The Scale Bar element is in the lower right corner, and it dynamically reports the general scale of the WorldWind globe. 
-* Scale Bar - The View Controls element is in the bottom left corner, and this allows users to use on screen buttons to change the camera incrementally.
+* Scale Bar - The Scale Bar element is in the lower right corner, and it dynamically reports the general scale of the WorldWind globe. 
+* View Controls - The View Controls element is in the bottom left corner, and this allows users to use on screen buttons to change the camera incrementally.
 * Layer Menu - This menu located on the left allows users to toggle different layers within the WorldWind Application. This menu is dynamically updated when a new KML or KMZ file is added to the application
 
 ####3.1 Mouse Control
