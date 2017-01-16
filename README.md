@@ -106,6 +106,7 @@ The COM API emulation is currently initiated when the user invokes Camera Contro
 * The icons for some KML data are unusually sized.
 * Camera Controls menu cannot be closed without closing the application, but can be hidden.
 * Current Time UI elements do not display on iOS. 
+* Hurricane Dolly TimeSpans hardcoded.
  
 ---------------------------------------------
 ##6. Contacts
