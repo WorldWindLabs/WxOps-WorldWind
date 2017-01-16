@@ -112,7 +112,7 @@ The COM API emulation is currently initiated when the user invokes Camera Contro
 
 ##6. Data Rights
 
-You are granted a license to use and distribute the WorldWind Earth github content in accordance with the NASA WorldWind License at https://worldwind.arc.nasa.gov/LICENSE.html. The WorldWind Earth github content is comprised of the WorldWind JAVA Client and extensions developed by WxOps and the WWE User Community, up to and including the WxOps COM API Emulation of the Keyhole EarthLib functions. Rights are not NOT CONVEYED for WxOps(R) and WxAnalyst(R) Proprietary materials and intellectual property, including OpsTablet(R), WxAzygy(R), COLLADA Computing(TM), and patents. 
+You are granted a license to use and distribute the WorldWind Earth github content in accordance with the NASA WorldWind License at https://worldwind.arc.nasa.gov/LICENSE.html. The WorldWind Earth github content is comprised of the WorldWind JAVA Client and extensions developed by WxOps and the WWE User Community, up to and including the WxOps COM API Emulation of the Keyhole EarthLib functions. Rights are not NOT CONVEYED for WxOps(R) and WxAnalyst(R) Proprietary materials and intellectual property, including OpsTablet(R), WxAzygy(R), COLLADA Computing(TM), US Patent No. 8,392,853, US Patent Pub. No. 20160293021, and US Patent App. No. 15/336,411.
 
 ---------------------------------------------
 ##7. Contacts
