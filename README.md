@@ -55,7 +55,7 @@ NASA WorldWind natively supports mouse control to manipulate the globe. The foll
 
 ####3.2 Camera Manipulation 
 
-The WorldwindUI is provisioned with a JPanel that allows users to input coordinates and camera settings to control the viewing angle and preferences, aka Point Of View (POV). This menu can be accessed from the Menu View > Camera Controls or by pressing [alt+f4]. This JPanel reports the camera settings when users click the “Get Camera” button on the Camera Controls JPanel. To manipulate the camera through this interface, enter the coordinates/settings desired into the text boxes and click the “Set Camera” button. The default camera settings are:
+The WorldwindUI is provisioned with a JPanel that allows users to input coordinates and camera settings to control the viewing angle and preferences, aka Point Of View (POV). This interface can be accessed from the Menu using "View > Camera Controls" or by pressing [alt+f4]. Camera Controls reports the camera settings when users click the “Get Camera” button. To manipulate the camera through this interface, enter the coordinates/settings desired into the text boxes and click the “Set Camera” button. The default camera settings are:
 
 **Default Camera Control Input**
 * Long: -75.00000
