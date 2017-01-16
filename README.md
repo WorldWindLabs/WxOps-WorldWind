@@ -66,9 +66,13 @@ The WorldwindUI is provisioned with a JPanel that allows users to input coordina
 * Azi: 0.000
 * F.O.V.: 45.000
 
-####3.3 Kml Support
+####3.3 KML Support
 
-The WorldWindUI has a menu allowing for importing KML and KMZ files. This can be accessed through File>Open KML Data. The user can choose either “Open File” or “Open URL.” Alternatively, “Open File” can be accessed by pressing [alt+2] and “Open URL” can be accessed by pressing [alt+3]. Choosing “Open File” will open a file chooser, defaulting to the user’s Documents folder. Selecting “Open URL” will open a popup allowing the user to type in a URL of a KML or KMZ file to open. Example data can be located at: https://wxops.com/demo/
+The WorldWindUI has a menu allowing for importing KML and KMZ files. This can be accessed through Menu item File. The user can choose either “Open KML File” or “Open KML Url.” Alternatively, “Open KML File” can be accessed by pressing [alt+2] and “Open KML Url” can be accessed by pressing [alt+3]. “Open KML File” will open a file chooser, defaulting to the user’s Documents folder. “Open KML Url” will open a popup allowing the user enter the Url of a KML or KMZ file. 
+Example data are provided for testing at http://wxops.com/demo/
+Defaults are preloaded for convenience:
+* https://wxops.com/demo/Dolly.kmz = test data with TimeSpans (for Animation)
+* https://wxops.com/demo/WWE-11.kmz = test data without TimeSpans (Placemark, GroundOverlay, COLLADA Model)
 
 ####3.4 Animation 
 
