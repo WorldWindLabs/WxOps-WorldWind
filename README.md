@@ -37,7 +37,7 @@ Alternate approach using JRE 8:
 
 ##3. How to Use
 
-Start the program using on the methods provided in the section above. The active UI for WorldWind comes with four main onscreen elements as well a bottom panel that reports information to the user. The first elements are as follows:
+Start the program using one of the methods provided in the section above. The active UI for WorldWind comes with four main onscreen elements as well a bottom panel that reports information to the user. The first elements are as follows:
 
 * World Map - The World Map element is in the top left corner of the screen that reports the location of the center of the screen.
 * Compass - The Compass element is in the top right and reports the direction towards North as well as the tilt of the globe.
@@ -45,15 +45,15 @@ Start the program using on the methods provided in the section above. The active
 * Scale Bar - The View Controls element is in the bottom left corner, and this allows users to use on screen buttons to change the camera incrementally.
 * Layer Menu - This menu located on the left allows users to toggle different layers within the WorldWind Application. This menu is dynamically updated when a new KML or KMZ file is added to the application
 
-#####3.1 Mouse Control
+####3.1 Mouse Control
 
-NASA WorldWind natively supports mouse control to manipulate the globe. The following is a list of functions. Alternatively, these functions can also be accessed via the onscreen buttons located on the bottom left of the screen.
+NASA WorldWind natively supports mouse control to manipulate the globe. The following is a list of functions. These functions can also be accessed via the onscreen buttons located on the bottom left of the screen. WorldWind also natively supports touch controls for touch-enabled devices (not described here).
 * Left Click on Globe.... Moves globe and the camera view coordinates so that the new location is centered on screen
 * Left Click Drag....... Spins the Globe.
 * Right Click Drag ..... Changes the Roll and Tilt of the camera view
 * Mouse Wheel........... Causes the camera to zoom in or out to change the altitude of the globe.
 
-#####3.2 Camera manipulation 
+####3.2 Camera manipulation 
 
 The WorldwindUI is equiped with a menu that allows users to input coordinates and camera settings to control the viewing angle and preferences. This menu can be accessed via View>Camera Control Menu or by pressing [alt+f4]. This menu reports the camera location and settings to the users by clicking the “Get Camera” button on the menu. To manipulate the camera through this menu, type the coordinates and settings into the text boxes and click the “Set Camera” button. The default camera settings can be found below.
 
@@ -65,11 +65,11 @@ The WorldwindUI is equiped with a menu that allows users to input coordinates an
 * Azi: 0.000
 * F.O.V.: 45.000
 
-#####3.3 Kml Support
+####3.3 Kml Support
 
 The WorldWindUI has a menu allowing for importing KML and KMZ files. This can be accessed through File>Open KML Data. The user can choose either “Open File” or “Open URL.” Alternatively, “Open File” can be accessed by pressing [alt+2] and “Open URL” can be accessed by pressing [alt+3]. Choosing “Open File” will open a file chooser, defaulting to the user’s Documents folder. Selecting “Open URL” will open a popup allowing the user to type in a URL of a KML or KMZ file to open. Example data can be located at: https://wxops.com/demo/
 
-#####3.4 Animation 
+####3.4 Animation 
 
 
 The WorldWindUI has elements to start and stop a time animation if a full KML or KMZ file contains a TimeSpan element. For the animation functionality to work correctly, the KML or KMZ file to animate must have its TimeSpan “Begin” and “End” values match the corresponding values assigned to the variables “start” and “end”. For the animation functionality to work correctly, the KML or KMZ file to animate must have its TimeSpan “Begin” and “End” values match the corresponding values assigned to the variables “start” and “end”. These time variables can be input into the corresponding text fields, if the values do not match, the animation will not function properly. Worldwind Earth has its default animation timestamps and delta set to allow for the demo animation "Hurricane Dolly" to function properly. 
