@@ -76,13 +76,12 @@ Defaults are preloaded for convenience:
 
 ####3.4 Animation 
 
-The WorldWindUI has elements to start and stop a time animation if a full KML or KMZ file contains a TimeSpan element. For the animation functionality to work correctly, the KML or KMZ file to animate must have its TimeSpan “Begin” and “End” values match the corresponding values assigned to the variables “start” and “end”. For the animation functionality to work correctly, the KML or KMZ file to animate must have its TimeSpan “Begin” and “End” values match the corresponding values assigned to the variables “start” and “end”. These time variables can be input into the corresponding text fields, if the values do not match, the animation will not function properly. Worldwind Earth has its default animation timestamps and delta set to allow for the demo animation "Hurricane Dolly" to function properly. 
+The WorldWindUI has elements to start and stop a time animation when any KML or KMZ file contains a TimeSpan element. Unlike other geobrowsers such as Google Earth, the current displayed Valid Time can be set to any value, regardless of the TimeSpans for any layers that are loaded and/or visible. For animation to show data on the Canvas, the KML or KMZ file to animate must have its TimeSpan “Begin” and “End” values match the corresponding values assigned to the variables “start” and “end”. These time variables can be input into the corresponding text fields. Worldwind Earth has its default animation timestamps and delta set to allow for the demo animation of "Hurricane Dolly". 
 
-Input must match the following format Example: 2008-07-23T18:02:00Z where (Year)-(month)-(date)T(Hour):Minute(Second)Z
+Time information must match the following format where (Year)-(month)-(day)T(Hour):(Minute):(Second)Z
+Example: 2008-07-23T18:02:00Z 
 
-Animation Data can be found at: https://wxops.com/demo under Hurrican Dolly.
-
-Input the following data 
+For Hurricane Dolly test KMZ, enter the following: 
 * Date Begin: 	2008-07-23T18:02:00Z
 * Date End:	2008-07-23T18:56:00Z
 * Time Delta:	9
