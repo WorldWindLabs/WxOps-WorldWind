@@ -25,23 +25,20 @@ import javax.swing.*;
  */
 public class AnimationControlWindow extends javax.swing.JFrame{
     private int c;
-    private WorldWindow wwd;
+    private WorldWindUI.AppFrame appFrame;
     private String ani;  //equivalent to POV
     private String responseFile = "";
     private String response = "";
     
-    String dateBegin = "2008-07-23T18:02:00Z";
-    String dateEnd = "2008-07-23T18:56:00Z";
-    private Date begin = WxOpsKMLTimeSpan.parseTimeString(dateBegin);
-    private Date end = WxOpsKMLTimeSpan.parseTimeString(dateEnd);
-    private int subDelta = 9;
-    private long delta = (end.getTime() - begin.getTime()) / subDelta; // divided by  due to hard coding timesteps.       
-    private Date date = new Date(begin.getTime());
-    
-    
+    private Date dateBegin = WxOpsKMLTimeSpan.parseTimeString("2008-07-23T18:02:00Z");
+    private Date dateEnd = WxOpsKMLTimeSpan.parseTimeString("2008-07-23T18:56:00Z");
+    private Date date = new Date(dateBegin.getTime());
+    private int dateSteps = 9;
+    private long dateDelta = (dateEnd.getTime() - dateBegin.getTime()) / dateSteps; 
      
-    public AnimationControlWindow(WorldWindow wwd) {
-        this.wwd = wwd;
+    public AnimationControlWindow(WorldWindUI.AppFrame appFrame) {
+        this.appFrame = appFrame;
+        this.appFrame.setCurrentDate(date);
         initComponents();
         if (c<1) {
             setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -50,10 +47,10 @@ public class AnimationControlWindow extends javax.swing.JFrame{
         //initialize ANI params 
         
          System.out.println("date = " + date);
-         System.out.println("begin = " + dateBegin);
-         System.out.println("end = " + dateEnd);
-         System.out.println("subDelta = " + subDelta);
-         System.out.println("delta = " + delta);
+         System.out.println("dateBegin = " + dateBegin);
+         System.out.println("dateEnd = " + dateEnd);
+         System.out.println("dateSteps = " + dateSteps);
+         System.out.println("dateDelta = " + dateDelta);
          
     }
     
@@ -234,7 +231,6 @@ public class AnimationControlWindow extends javax.swing.JFrame{
         
         //set ANI
         //WorldWindUI.setTimeANI(begin);
-        this.wwd = wwd;
         //date.setTime(begin.getTime());
         //getWwd().redraw(); 
         //SwingUtilities.invokeLater(new Runnable() {
@@ -290,14 +286,15 @@ public class AnimationControlWindow extends javax.swing.JFrame{
             
             //update animation 
             //   protected void onTimerFired() {
-            date.setTime(date.getTime() + delta);
-            if (date.compareTo(end) > 0) {
-                date.setTime(begin.getTime());
+            date.setTime(date.getTime() + dateDelta);
+            if (date.compareTo(dateEnd) > 0) {
+                date.setTime(dateBegin.getTime());
             }
             df.setTimeZone(TimeZone.getTimeZone("UTC"));        
             jCheckBox1.setText(df.format(date));
             //    jTextArea1.setText(date.toString()); // print the sting a text file on screen. to know when dates/time
-            wwd.redraw();
+            appFrame.setCurrentDate(date);
+            appFrame.getWwd().redraw();
             // Consoul readout of dates
            
             //dateTextField.setValue(date);
