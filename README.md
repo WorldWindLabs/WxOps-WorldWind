@@ -12,21 +12,21 @@ Animation Example: https://www.youtube.com/watch?v=od7pc1fOsoo
 ---------------------------------------------
 ##2. Installation & Getting Started
 
-How to import the project into NETBEANS 8.2 IDE and run the main class.
+How to import the project into NETBEANS 8.2 IDE and run the main class:
 
 1. Download the project files on github.com
-2. Add the project to NETBEANS IDE by selecting: File>Import Project>From ZIP...
+2. Add the project to NETBEANS IDE by selecting: File>Import Project>From ZIP
 3. Once the project is imported, compile the code by pressing the "Run Project" button
 4. In the Projects Tab, navigate to the main classes by selecting: WxOpsWorldwindEarth>Source Packages> WxOps.Worldwind> WorldWindUI.java
 
-How to Run WxOpsWorldwindEarth.jar from the command line.
+How to Run WxOpsWorldwindEarth.jar from the command line:
 
 1. Download the project files on github.com and compile in NETBEANS IDE as described above
 2. Open a windows command prompt.
 3. Navigate to the WxopsWorldwindEarth directory and then go to the dist subfolder
 4. Type the following in the command prompt: java -jar "WxOpsWorldwindEarth.jar" 
 
-Alternate approach using JRE 8.
+Alternate approach using JRE 8:
 
 1. Download and install JAVA Runtime (JRE) 8 from  http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html
 2. Download dist.zip from https://wxops.com/demo/dist.zip
@@ -37,13 +37,13 @@ Alternate approach using JRE 8.
 
 ##3. How to Use
 
-Start the program using on the methods provided in the section above. The active UI for Worldwind comes with four main onscreen elements as well a bottom panel that reports information to the user. The first elements are as follows:
+Start the program using on the methods provided in the section above. The active UI for WorldWind comes with four main onscreen elements as well a bottom panel that reports information to the user. The first elements are as follows:
 
 * World Map - The World Map element is in the top left corner of the screen that reports the location of the center of the screen.
-* Compass - The Compass element is in the top right and reports the location of the north as well as the tilt of the globe.
-* View Controls - The Scale Bar element is in the lower right corner, and it dynamically reports the general scale of the World Wind globe. 
+* Compass - The Compass element is in the top right and reports the direction towards North as well as the tilt of the globe.
+* View Controls - The Scale Bar element is in the lower right corner, and it dynamically reports the general scale of the WorldWind globe. 
 * Scale Bar - The View Controls element is in the bottom left corner, and this allows users to use on screen buttons to change the camera incrementally.
-* Layer Menu - This menu located on the left allows users to toggle different layers within the Worldwind Application. This menu also dynamically updated when a new KML or KMZ file is added to the application
+* Layer Menu - This menu located on the left allows users to toggle different layers within the WorldWind Application. This menu is dynamically updated when a new KML or KMZ file is added to the application
 
 #####3.1 Mouse Control
 
