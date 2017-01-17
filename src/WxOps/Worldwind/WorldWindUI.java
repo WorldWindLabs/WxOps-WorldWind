@@ -41,11 +41,7 @@ import java.text.SimpleDateFormat;
 // @author pSubacz & vHaley, updated wxazygy 11 Jan 2017
 public class WorldWindUI extends ApplicationTemplate {
 
-    static void setTimeANI(String validTime) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        //date.setTime(date3.getTime());
-        //getWwd().redraw();
-    }
+    
 
     public static class AppFrame extends ApplicationTemplate.AppFrame {
 
