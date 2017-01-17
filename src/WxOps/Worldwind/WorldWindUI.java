@@ -38,7 +38,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.text.SimpleDateFormat;
 
-// @author pSubacz & vHaley, updated wxazygy 11 Jan 2017
+// @author pSubacz & vHaley
+// @author wxazygy update 11 Jan 2017 - CameraControlWindow
 // @author wxazygy update 15 Jan 2017 - AnimationWindowControl
 // @author collins update 16 Jan 2017 - final ANI solution
 
@@ -108,7 +109,9 @@ public class WorldWindUI extends ApplicationTemplate {
 //--------------FILE-Menu------------------------------------------
             menuBar = new JMenuBar(); // Creates the menubar to work off of.
             this.setJMenuBar(menuBar);
+            
             JMenu fileMenu = new JMenu("File"); // Adds "File" to the menu bar.
+            fileMenu.setMnemonic(KeyEvent.VK_F);
             menuBar.add(fileMenu); // Adds the "File" section to the menu bar.
 
 //-------------File-Submenu----------------------------------------
@@ -180,6 +183,7 @@ public class WorldWindUI extends ApplicationTemplate {
             viewMenu = new JMenu("View");
             viewMenu.setMnemonic(KeyEvent.VK_V);
             menuBar.add(viewMenu);
+                      
             // The following code creates a pop-up window that allows users to control the camera via typing input commands. The menu can be found in the file called CameraControlWindow.java
             openCameraControlItem = new JMenuItem("Camera Controls");
             openCameraControlItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, ActionEvent.ALT_MASK)); // Sets a Hotkey to
