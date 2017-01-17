@@ -39,12 +39,11 @@ import java.awt.Dimension;
 import java.text.SimpleDateFormat;
 
 // @author pSubacz & vHaley, updated wxazygy 11 Jan 2017
+// @author wxazygy update 15 Jan 2017 - AnimationWindowControl
+// @author collins update 16 Jan 2017 - final ANI solution
+
 public class WorldWindUI extends ApplicationTemplate {
-
-    
-
     public static class AppFrame extends ApplicationTemplate.AppFrame {
-
         static {
             // Register the WxOps KML parser context, giving it priority over the default KML parser context
             String[] mimeTypes = new String[]{KMLConstants.KML_MIME_TYPE, KMLConstants.KMZ_MIME_TYPE};
@@ -56,7 +55,7 @@ public class WorldWindUI extends ApplicationTemplate {
         protected HotSpotController hotSpotController;
         protected KMLApplicationController kmlAppController;
         protected BalloonController balloonController;
-        protected Date currentDate = new Date();
+        protected Date currentDate = new Date();  //ANI
 
         public AppFrame() {
             super(true, false, false); // Leave as is unless a the side panel for Windlayers is needed.
@@ -117,8 +116,8 @@ public class WorldWindUI extends ApplicationTemplate {
             fileMenu.addSeparator();
             // Open KML File
             // The Following section allows for the importing of KML files from any directory to the local WorldWind directory. NOTICE: IMPORTED FILES ARE NOT SAVED!
-            openFileMenuItem = new JMenuItem("Open KML File..."); // This button opens a file selection tool to import a KML files
-            openFileMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.ALT_MASK));
+            openFileMenuItem = new JMenuItem("Open KML File"); // This button opens a file selection tool to import a KML files
+            openFileMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_K, ActionEvent.ALT_MASK));
             openFileMenuItem.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent actionEvent) {
                     try {
@@ -137,8 +136,8 @@ public class WorldWindUI extends ApplicationTemplate {
 
             // Open KML URL #1
             // The Following section allows for the importing of KML files from a online URL address to the local WorldWind directory. NOTICE: IMPORTED FILES ARE NOT SAVED!
-            openURLMenuItem = new JMenuItem("Open KML Url...");
-            openURLMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, ActionEvent.ALT_MASK));
+            openURLMenuItem = new JMenuItem("Open URL1");
+            openURLMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
             openURLMenuItem.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent actionEvent) {
                     try {
@@ -155,8 +154,8 @@ public class WorldWindUI extends ApplicationTemplate {
 
             // Open KML URL #2
             // The Following section allows for the importing of KML files from a online URL address to the local WorldWind directory. NOTICE: IMPORTED FILES ARE NOT SAVED!
-            openURLMenuItem = new JMenuItem("Open KML Url...");
-            openURLMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, ActionEvent.ALT_MASK));
+            openURLMenuItem = new JMenuItem("Open URL2");
+            openURLMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.ALT_MASK));
             openURLMenuItem.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent actionEvent) {
                     try {
@@ -182,9 +181,8 @@ public class WorldWindUI extends ApplicationTemplate {
             viewMenu.setMnemonic(KeyEvent.VK_V);
             menuBar.add(viewMenu);
             // The following code creates a pop-up window that allows users to control the camera via typing input commands. The menu can be found in the file called CameraControlWindow.java
-            openCameraControlItem = new JMenuItem("Camera Controls ");
-            viewMenu.add(openCameraControlItem); // Adds the Set Camera Menu,
-            openCameraControlItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_4, ActionEvent.ALT_MASK)); // Sets a Hotkey to
+            openCameraControlItem = new JMenuItem("Camera Controls");
+            openCameraControlItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_3, ActionEvent.ALT_MASK)); // Sets a Hotkey to
             openCameraControlItem.addActionListener(new ActionListener() {   //The Following code is excuted when the button is pressed
                 public void actionPerformed(ActionEvent actionEvent) {
                     boolean ccwRunning = false;
@@ -217,25 +215,11 @@ public class WorldWindUI extends ApplicationTemplate {
                     }
                 }
             });
-
-//--------------Help-Menu------------------------------------
-            helpMenu = new JMenu("Help");
-            viewMenu.setMnemonic(KeyEvent.VK_H);
-            menuBar.add(helpMenu);
-            // The following code creates a pop-up window that allows users to control the camera via typing input commands. The menu can be found in the file called CameraControlWindow.java
-            openHelpItem = new JMenuItem("Help");
-            helpMenu.add(openHelpItem); // Adds the Set Camera Menu,
-            openCameraControlItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_7, ActionEvent.ALT_MASK));
-
-//--------------Animation-Menu------------------------------
-            //The animation Menu allows a user to play animations found within the hardcoded timestamps.
-            viewMenu = new JMenu("Animation");
-            viewMenu.setMnemonic(KeyEvent.VK_V);
-            menuBar.add(viewMenu);
-
-            // The following code creates a pop-up window that allows users to control the camera via typing input commands. The menu can be found in the file called CameraControlWindow.java
-            openCameraControlItem = new JMenuItem("Animation Controls ");
-            openCameraControlItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.ALT_MASK)); // Sets a Hotkey to
+            viewMenu.add(openCameraControlItem); // Adds the Set Camera Menu,
+            
+             // The following code creates a pop-up window that allows users to control the camera via typing input commands. The menu can be found in the file called AnimationControlWindow.java
+            openCameraControlItem = new JMenuItem("Animation Controls");
+            openCameraControlItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_4, ActionEvent.ALT_MASK)); // Sets a Hotkey to
             openCameraControlItem.addActionListener(new ActionListener() {   //The Following code is excuted when the button is pressed
                 public void actionPerformed(ActionEvent actionEvent) {
                     boolean aniRunning = false;
@@ -261,7 +245,17 @@ public class WorldWindUI extends ApplicationTemplate {
                     }
                 }
             });
-            viewMenu.add(openCameraControlItem); // Adds the Set Camera Menu,
+            viewMenu.add(openCameraControlItem); // Adds the Set Camera Menu,           
+
+//--------------Help-Menu------------------------------------
+            helpMenu = new JMenu("Help");
+            helpMenu.setMnemonic(KeyEvent.VK_H);
+            menuBar.add(helpMenu);
+            // The following code creates a pop-up window that allows users to control the camera via typing input commands. 
+            openHelpItem = new JMenuItem("Help");
+            openCameraControlItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_5, ActionEvent.ALT_MASK));
+            helpMenu.add(openHelpItem); // Adds the Help function
+            
         }
 
         protected void addKMLLayer(KMLRoot kmlRoot) {
@@ -342,7 +336,7 @@ public class WorldWindUI extends ApplicationTemplate {
     }
 
     public static void main(String[] args) {
-        final AppFrame af = (AppFrame) start("WxOps Inc. WorldWind Earth 0.6.1", AppFrame.class);
+        final AppFrame af = (AppFrame) start("WxOps Inc. WorldWind Earth 0.6.2", AppFrame.class);
         //09 Jan 2017 version 0.6.1
         //15 Jan 2017 version 0.6.2 (SBIR Phase 1 Deliverable)
     }
@@ -350,6 +344,5 @@ public class WorldWindUI extends ApplicationTemplate {
     // Variables declaration - do not modify
     protected static ViewControlsLayer viewControlsLayer;
     private static WorldWindow wwd;
-    protected JButton aniplayButton, anistopButton;
-    //Boolean animationFlag = false;
+
 }
