@@ -33,8 +33,8 @@ public class AnimationControlWindow extends javax.swing.JFrame{
     private Date dateBegin = WxOpsKMLTimeSpan.parseTimeString("2008-07-23T18:02:00Z");
     private Date dateEnd = WxOpsKMLTimeSpan.parseTimeString("2008-07-23T18:56:00Z");
     private Date date = new Date(dateBegin.getTime());
-    private int dateSteps = 9;
-    private long dateDelta = (dateEnd.getTime() - dateBegin.getTime()) / dateSteps; 
+    private int dateStep = 6;  //minutes
+    private long dateDelta = dateStep * 60000; //(dateEnd.getTime() - dateBegin.getTime()) / dateSteps; 
      
     public AnimationControlWindow(WorldWindUI.AppFrame appFrame) {
         this.appFrame = appFrame;
@@ -49,7 +49,7 @@ public class AnimationControlWindow extends javax.swing.JFrame{
          System.out.println("date = " + date);
          System.out.println("dateBegin = " + dateBegin);
          System.out.println("dateEnd = " + dateEnd);
-         System.out.println("dateSteps = " + dateSteps);
+         System.out.println("dateSteps = " + dateStep);
          System.out.println("dateDelta = " + dateDelta);
          
     }
@@ -226,41 +226,43 @@ public class AnimationControlWindow extends javax.swing.JFrame{
     
     //REWIND TO BEGIN
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        jCheckBox1.setSelected(false); //stop ANI    
         String begin = jTextField2.getText();
         jTextField1.setText(begin);
-        
-        //set ANI
-        //WorldWindUI.setTimeANI(begin);
-        //date.setTime(begin.getTime());
-        //getWwd().redraw(); 
-        //SwingUtilities.invokeLater(new Runnable() {
-        //        public void run() {
-        //            getAniUI().jSetTime(begin);
-        //        }
-        //    });
-        
+        dateBegin = WxOpsKMLTimeSpan.parseTimeString(begin);
+        date.setTime(dateBegin.getTime());
+        refreshANI();
     }  
     
     //STEP FORWARD
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        jTextField1.setText("2008-07-23T18:30:00Z");
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {   
+        jCheckBox1.setSelected(false); //stop ANI
+        //recalculate dateDelta
+        dateStep = Integer.parseInt(jTextField4.getText());
+        dateDelta = dateStep * 60000;
         
-        //set ANI
-        
+        date.setTime(date.getTime() + dateDelta);  //add millisec
+        //jTextField1.setText("2008-07-23T18:30:00Z");
+        refreshANI();   
     }  
     
     //FORWARD TO END
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {   
+        jCheckBox1.setSelected(false); //stop ANI
         String end = jTextField3.getText();
         jTextField1.setText(end);
-        
-        //set ANI
-        
+        dateEnd = WxOpsKMLTimeSpan.parseTimeString(end);
+        date.setTime(dateEnd.getTime());
+        refreshANI();
     }  
     
     private Timer twx2;
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
-   if (jCheckBox1.isSelected()) {
+    if (jCheckBox1.isSelected()) {
+            //recalculate dateDelta
+            dateStep = Integer.parseInt(jTextField4.getText());
+            dateDelta = dateStep * 60000;
+        
             String timerDelta = jTextField5.getText();  //step in millisec
             int foo = Integer.parseInt(timerDelta);
             twx2 = new Timer(foo, new AnimationListener());
@@ -270,42 +272,34 @@ public class AnimationControlWindow extends javax.swing.JFrame{
         }
     } 
    
-    
+    public void refreshANI() {
+        df.setTimeZone(TimeZone.getTimeZone("UTC"));        
+        jCheckBox1.setText(df.format(date));
+        //    jTextArea1.setText(date.toString()); // print the sting a text file on screen. to know when dates/time
+        appFrame.setCurrentDate(date);
+        appFrame.getWwd().redraw();
+    }
     private DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-    
-    
+        
     class AnimationListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             Calendar now = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-            String hh = String.format("%02d", now.get(Calendar.HOUR_OF_DAY));
-            String mm = String.format("%02d", now.get(Calendar.MINUTE));
-            String ss = String.format("%02d", now.get(Calendar.SECOND));
-            String ms = String.format("%03d", now.get(Calendar.MILLISECOND));
+            //String hh = String.format("%02d", now.get(Calendar.HOUR_OF_DAY));
+            //String mm = String.format("%02d", now.get(Calendar.MINUTE));
+            //String ss = String.format("%02d", now.get(Calendar.SECOND));
+            //String ms = String.format("%03d", now.get(Calendar.MILLISECOND));
             //jCheckBox1.setText("" + hh + ":" + mm + ":" + ss + "." + ms + "Z");
             
-            
             //update animation 
-            //   protected void onTimerFired() {
-            date.setTime(date.getTime() + dateDelta);
+            date.setTime(date.getTime() + dateDelta);  //add millisec
             if (date.compareTo(dateEnd) > 0) {
                 date.setTime(dateBegin.getTime());
             }
-            df.setTimeZone(TimeZone.getTimeZone("UTC"));        
-            jCheckBox1.setText(df.format(date));
-            //    jTextArea1.setText(date.toString()); // print the sting a text file on screen. to know when dates/time
-            appFrame.setCurrentDate(date);
-            appFrame.getWwd().redraw();
-            // Consoul readout of dates
-           
-            //dateTextField.setValue(date);
-            //}
-            
-            
-            
-            
-            
-            
+            refreshANI();
         }
+        
+ 
+        
     } //ClockListener
 
     // Variables declaration - do not modify                     
