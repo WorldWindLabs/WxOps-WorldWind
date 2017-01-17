@@ -210,15 +210,15 @@ public class CameraControlWindow extends javax.swing.JFrame {
         refreshGET();
     }
     private void refreshGET() {
-        View view = this.wwd.getView();
-        Position p = view.getEyePosition();
+        BasicOrbitView view = (BasicOrbitView) this.wwd.getView();
+        Position p = view.getCenterPosition();
 
         //lat and lon
         jTextField1.setText(String.format("%.5f", p.longitude.degrees)); //lon
         jTextField2.setText(String.format("%.5f", p.latitude.degrees)); //lat
 
-        double z = p.getElevation();
-        jTextField3.setText(String.format("%.1f", z));
+        double rng = view.getZoom();
+        jTextField3.setText(String.format("%.1f", rng));
 
         double roll = view.getRoll().degrees;
         jTextField4.setText(String.format("%.3f", roll));
@@ -237,13 +237,13 @@ public class CameraControlWindow extends javax.swing.JFrame {
     }                                        
 
     public void jgetPOV() {
-        View view = this.wwd.getView();
-        Position p = view.getEyePosition();;
+        BasicOrbitView view = (BasicOrbitView) this.wwd.getView();
+        Position p = view.getCenterPosition();
         pov = "getpov,";
         pov = pov + String.format("%.5f", p.longitude.degrees) + ",";
         pov = pov + String.format("%.5f", p.latitude.degrees) + ","; 
-        double z = p.getElevation();
-        pov = pov + String.format("%.1f", z) + ","; 
+        double rng = view.getZoom();
+        pov = pov + String.format("%.1f", rng) + ","; 
         double roll = view.getRoll().degrees;
         pov = pov + String.format("%.3f", roll) + ","; 
         double tilt = view.getPitch().degrees;
@@ -278,7 +278,8 @@ public class CameraControlWindow extends javax.swing.JFrame {
     
     private void refreshSET() {
         BasicOrbitView view = (BasicOrbitView) this.wwd.getView();
-        view.setEyePosition(Position.fromDegrees(Double.parseDouble(jTextField2.getText()), Double.parseDouble(jTextField1.getText()), Double.parseDouble(jTextField3.getText())));
+        view.setCenterPosition(Position.fromDegrees(Double.parseDouble(jTextField2.getText()), Double.parseDouble(jTextField1.getText()), 0d));
+        view.setZoom(Double.parseDouble(jTextField3.getText()));
         view.setRoll(Angle.fromDegrees(Double.parseDouble(jTextField4.getText())));
         view.setPitch(Angle.fromDegrees(Double.parseDouble(jTextField5.getText())));
         view.setHeading(Angle.fromDegrees(Double.parseDouble(jTextField6.getText())));
